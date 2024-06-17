@@ -49,7 +49,7 @@ public class Mino : MonoBehaviour
 
             if (!ValidMovement())
             {
-                transform.position -= new Vector3(0, -1, 0);
+                transform.position -= new Vector3(1, 0, 0);
             }
         }
         // 自動で下に移動させつつ、下矢印キーでも移動する
@@ -73,6 +73,16 @@ public class Mino : MonoBehaviour
         {
             // minoを上矢印キーを押して回転させる
             transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), 90);
+
+            if (!ValidMovement())
+            {
+                transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), -90);
+
+
+
+            }
+
+
         }
     }
 
@@ -162,6 +172,7 @@ public class Mino : MonoBehaviour
             // minoがステージよりはみ出さないように制御
             if (roundX < 0 || roundX >= width || roundY < 0 || roundY >= height)
             {
+                Debug.Log("当たりました");
                 return false;
             }
 
