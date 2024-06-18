@@ -12,6 +12,10 @@ public class Mino : MonoBehaviour
     private static int width = 10;
     private static int height = 20;
 
+    //順番フラグ
+    private bool Enemy_Turn  = false;
+    public static bool P1_Turn = false;
+    public static bool P2_Turn = false;
 
     // mino回転
     public Vector3 rotationPoint;
@@ -21,15 +25,34 @@ public class Mino : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+        int rnd = Random.Range(0, 2); 
+        //ランダムで順番決め
+        switch(rnd)
+        {
+            case 0:
+                P1_Turn = true;
+                Debug.Log("p1");
+                break;
+            case 1:
+                P2_Turn = true;
+                Debug.Log("p2");
+                break;
+            default:
+                Debug.Log("範囲外");
+                break;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        MinoMovememt();
+        if (P1_Turn)//プレイたー１遅れて呼び出す
+            MinoMovememt1();
+        if (P2_Turn)//プレイヤー２遅れて呼び出す
+            MinoMovememt2();
     }
-    private void MinoMovememt()
+    //プレイヤー１
+    private void MinoMovememt1()
     {
         // 左矢印キーで左に動く
         if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -64,6 +87,8 @@ public class Mino : MonoBehaviour
                 AddToGrid();
                 CheckLines();
                 this.enabled = false;
+                P2_Turn = true;
+                P1_Turn = false;
                 FindObjectOfType<SpawnMino>().NewMino();
             }
             previousTime = Time.time;
@@ -83,6 +108,61 @@ public class Mino : MonoBehaviour
             }
 
 
+        }
+    }
+
+    //プレイヤー２
+    private void MinoMovememt2()
+    {
+        // 左矢印キーで左に動く
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            transform.position += new Vector3(-1, 0, 0);
+
+            if (!ValidMovement())
+            {
+                transform.position -= new Vector3(-1, 0, 0);
+            }
+
+        }
+        // 右矢印キーで右に動く
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            transform.position += new Vector3(1, 0, 0);
+
+            if (!ValidMovement())
+            {
+                transform.position -= new Vector3(1, 0, 0);
+            }
+        }
+        // 自動で下に移動させつつ、下矢印キーでも移動する
+        else if (Input.GetKeyDown(KeyCode.S) || Time.time - previousTime >= fallTime)
+        {
+            transform.position += new Vector3(0, -1, 0);
+
+            if (!ValidMovement())
+            {
+                transform.position -= new Vector3(0, -1, 0);
+
+                AddToGrid();
+                CheckLines();
+                this.enabled = false;
+                P1_Turn = true;
+                P2_Turn = false;
+                FindObjectOfType<SpawnMino>().NewMino();
+            }
+            previousTime = Time.time;
+        }
+
+        else if (Input.GetKeyDown(KeyCode.W))
+        {
+            // minoを上矢印キーを押して回転させる
+            transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), 90);
+
+            if (!ValidMovement())
+            {
+                transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), -90);
+            }
         }
     }
 
