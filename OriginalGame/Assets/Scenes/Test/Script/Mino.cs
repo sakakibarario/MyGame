@@ -25,22 +25,7 @@ public class Mino : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        int rnd = Random.Range(0, 2); 
-        //ƒ‰ƒ“ƒ_ƒ€‚Å‡”ÔŒˆ‚ß
-        switch(rnd)
-        {
-            case 0:
-                P1_Turn = true;
-                Debug.Log("p1");
-                break;
-            case 1:
-                P2_Turn = true;
-                Debug.Log("p2");
-                break;
-            default:
-                Debug.Log("”ÍˆÍŠO");
-                break;
-        }
+       
     }
 
     // Update is called once per frame
@@ -190,7 +175,7 @@ public class Mino : MonoBehaviour
         }
 
         // ¡‰ñ‚Ì’Ç‰Á
-        FindObjectOfType<GameManagement>().AddScore();
+        //FindObjectOfType<GameManagement>().AddScore();
         return true;
     }
 

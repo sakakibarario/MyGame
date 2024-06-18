@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
     {
         Playing,
         Result,
-        Home,
         Pose,
         Title,
         Demo
@@ -19,7 +18,6 @@ public class GameManager : MonoBehaviour
     //フェード用
     public string sceneNameR;
     public string sceneNameG;
-    public string sceneNameH;
     public string sceneNameT;
     public string sceneNameD;
 
@@ -27,7 +25,7 @@ public class GameManager : MonoBehaviour
     public float fadeSpeed;
 
     // 現在のゲーム進行状態
-    GameState currentState = GameState.Home;
+    GameState currentState = GameState.Title;
 
     public static string GState = "title";//ゲームの状態
 
@@ -56,9 +54,6 @@ public class GameManager : MonoBehaviour
             case GameState.Result:
                 GameResult();
                 break;
-            case GameState.Home:
-                GameHome();
-                break;
             case GameState.Pose:
                 GamePose();
                 break;
@@ -84,11 +79,6 @@ public class GameManager : MonoBehaviour
         Debug.Log("Title");
       
     }
-    // オープニング処理
-    void GameHome()
-    {
-        Debug.Log("home");
-    }
 
     //ポーズ処理
     void GamePose()
@@ -100,7 +90,7 @@ public class GameManager : MonoBehaviour
     void GameStart()
     {
         GState = "Playing";
-     
+        Initiate.Fade(sceneNameG, loadToColor, fadeSpeed);
         Debug.Log("playing");
     }
 
