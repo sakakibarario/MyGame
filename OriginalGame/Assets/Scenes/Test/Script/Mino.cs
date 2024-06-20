@@ -13,7 +13,7 @@ public class Mino : MonoBehaviour
     private static int height = 20;
 
     //‡”Ôƒtƒ‰ƒO
-    private bool Enemy_Turn  = false;
+    //private bool Enemy_Turn  = false;
     public static bool P1_Turn = false;
     public static bool P2_Turn = false;
 
@@ -87,9 +87,6 @@ public class Mino : MonoBehaviour
             if (!ValidMovement())
             {
                 transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), -90);
-
-
-
             }
 
 
