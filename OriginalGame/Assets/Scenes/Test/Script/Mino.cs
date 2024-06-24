@@ -6,7 +6,7 @@ public class Mino : MonoBehaviour
 {
     public float previousTime;
     // minoが落ちるタイム
-    public float fallTime = 1f;
+    public static float fallTime = 1.0f;
 
     // ステージの大きさ
     private static int width = 10;
@@ -171,7 +171,7 @@ public class Mino : MonoBehaviour
             //Debug.Log(j);
         }
 
-        // 今回の追加
+    
         //FindObjectOfType<GameManagement>().AddScore();
         return true;
     }
