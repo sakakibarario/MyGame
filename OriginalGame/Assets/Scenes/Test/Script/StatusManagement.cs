@@ -8,9 +8,9 @@ using UnityEngine.UI;
 public class StatusManagement : MonoBehaviour
 {
     //HPバーイメージ用
-    //[SerializeField] public GameObject Player1hpBar;
-    //[SerializeField] public GameObject Player2hpBar;
-    public Slider slider;
+    [SerializeField] public Image Player1hpBar;
+    [SerializeField] public Image Player2hpBar;
+    //public Slider slider;
 
     //ステータス
     //最大HP
@@ -26,10 +26,11 @@ public class StatusManagement : MonoBehaviour
     private int   isDamage 　  = 10;   //与えるダメージ
     private float isDebuff 　  = 0.4f; //Mino落下スピード
     private float MainFallTime = 1.0f; //Mino通常落下スピード
-    private bool  isBuff       = false;//バフフラグ
     private int   isRecovery   = 10;   //回復量
-    public bool   OnDebuffFlag = false;//デバフフラグ
-    public bool   OnBuffFlag   = false;//バフフラグ
+    private bool  OnDebuffFlag = false;//デバフフラグ
+    private bool  OnBuffFlag   = false;//バフフラグ
+    //public  int   DebuffTime   = 1;    //効果時間
+    //public  int   BuffTime     = 1;    //効果時間
 
     //効果ステート
     public enum EffectState
@@ -41,11 +42,84 @@ public class StatusManagement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        slider.value = 1;
+        Player1hpBar.fillAmount = 1;
+        Player2hpBar.fillAmount = 1;
         //Hpの記憶
         current1Hp = Player1MaxHP;
         current2Hp = Player2MaxHP;
         //currentEnemyHp = EnemyMaxHP;
+    }
+
+   
+
+    public void AttackHandle()
+    {
+        //Debug.Log("ダメージ");
+        if (!OnBuffFlag)
+        {
+            if (Mino.P1_Turn)
+            {
+                //Hpを減らす
+                current2Hp -= isDamage;
+                Player2hpBar.fillAmount = (float)current2Hp / (float)Player2MaxHP;
+                Debug.Log("2減らす");
+            }
+            if (Mino.P2_Turn)
+            {
+                //Hpを減らす
+                current1Hp -= isDamage;
+                Player1hpBar.fillAmount = (float)current1Hp / (float)Player1MaxHP;
+                Debug.Log("1減らす");
+            }
+        }
+    }
+
+    public void DebuffHandle()
+    {
+        if(!OnDebuffFlag)
+        {
+            Mino.fallTime = isDebuff;
+            FindObjectOfType<Mino>().EffectDebuffTime(1);
+            OnDebuffFlag = true;
+        }  
+    }
+
+   
+
+    public void BuffHandle()
+    {
+        Debug.Log("バフスタート");
+       
+        OnBuffFlag = true;
+        Debug.Log(OnBuffFlag);
+        FindObjectOfType<Mino>().EffectDebuffTime(1);
+    }
+
+    public void RecoveryHandle()
+    {
+        if(current1Hp <= Player1MaxHP)
+        {
+            if (Mino.P1_Turn)
+            {
+                //Hpを回復
+                current1Hp += isRecovery;
+                Player1hpBar.fillAmount = (float)current1Hp / (float)Player1MaxHP;
+            }
+        }
+        if (current2Hp <= Player2MaxHP)
+        {
+            if (Mino.P2_Turn)
+            {
+                //Hpを回復
+                current2Hp += isRecovery;
+                Player2hpBar.fillAmount = (float)current2Hp / (float)Player2MaxHP;
+            }
+        }
+    }
+
+    public void NormalHandle()
+    {
+
     }
 
     public void divide(EffectState state)
@@ -57,71 +131,9 @@ public class StatusManagement : MonoBehaviour
                 OnDebuffFlag = false;
                 break;
             case EffectState.BuffEffect:
+                Debug.Log("バフ終了");
                 OnBuffFlag = false;
                 break;
         }
-    }
-
-    public void AttackHandle()
-    {
-        if (!OnBuffFlag)
-        {
-            if (Mino.P1_Turn)
-            {
-                //Hpを減らす
-                current2Hp -= isDamage;
-                slider.value = (float)current2Hp / (float)Player2MaxHP;
-            }
-            if (Mino.P2_Turn)
-            {
-                //Hpを減らす
-                current1Hp -= isDamage;
-                slider.value = (float)current1Hp / (float)Player1MaxHP;
-            }
-        }
-    }
-
-    public void DebuffHandle()
-    {
-        if(!OnDebuffFlag)
-        {
-            Mino.fallTime = isDebuff;
-            OnDebuffFlag = true;
-        }  
-    }
-
-   
-
-    public void BuffHandle()
-    {
-        OnBuffFlag = true;
-        Debug.Log("Buff");
-    }
-
-    public void RecoveryHandle()
-    {
-        if(current1Hp <= Player1MaxHP)
-        {
-            if (Mino.P1_Turn)
-            {
-                //Hpを回復
-                current1Hp += isRecovery;
-                slider.value = (float)current1Hp / (float)Player1MaxHP;
-            }
-        }
-        if (current2Hp <= Player2MaxHP)
-        {
-            if (Mino.P2_Turn)
-            {
-                //Hpを回復
-                current2Hp += isRecovery;
-                slider.value = (float)current2Hp / (float)Player2MaxHP;
-            }
-        }
-    }
-
-    public void NormalHandle()
-    {
-
     }
 }

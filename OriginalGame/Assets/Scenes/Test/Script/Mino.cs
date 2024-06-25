@@ -8,13 +8,17 @@ public class Mino : MonoBehaviour
     // minoが落ちるタイム
     public static float fallTime = 1.0f;
 
+    //デバフ、バフ効果時間
+    private int DebuffTime  = 0;
+    private int BuffTime = 0; 
+
     // ステージの大きさ
     private static int width = 10;
     private static int height = 20;
 
     //順番フラグ
     //private bool Enemy_Turn  = false;
-    public static bool P1_Turn = false;
+    public static bool P1_Turn = true;
     public static bool P2_Turn = false;
 
     // mino回転
@@ -25,7 +29,20 @@ public class Mino : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+        //効果時間終了
+        if(DebuffTime == 0)
+            FindObjectOfType<StatusManagement>().divide(StatusManagement.EffectState.DeBuffEffect);
+        if (BuffTime == 0)
+            FindObjectOfType<StatusManagement>().divide(StatusManagement.EffectState.BuffEffect);
+
+        if (DebuffTime > 0)
+        {
+            DebuffTime--;
+        }
+        if (BuffTime > 0)
+        {
+            BuffTime--;
+        }
     }
 
     // Update is called once per frame
@@ -36,6 +53,22 @@ public class Mino : MonoBehaviour
         if (P2_Turn)//プレイヤー２呼び出す
             MinoMovememt2();
     }
+
+    //デバフ時間
+    public void EffectDebuffTime(int Time)
+    {
+        Debug.Log(Time);
+        DebuffTime = Time;
+    }
+
+    //バフ時間
+    public void EffectBuffTime(int Time)
+    {
+        Debug.Log(Time);
+        BuffTime = Time;
+    }
+
+
     //プレイヤー１
     private void MinoMovememt1()
     {
@@ -234,7 +267,7 @@ public class Mino : MonoBehaviour
             // minoがステージよりはみ出さないように制御
             if (roundX < 0 || roundX >= width || roundY < 0 || roundY >= height)
             {
-                Debug.Log("当たりました");
+                //Debug.Log("当たりました");
                 return false;
             }
 
