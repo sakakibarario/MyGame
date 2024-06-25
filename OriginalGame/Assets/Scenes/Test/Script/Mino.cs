@@ -31,9 +31,9 @@ public class Mino : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (P1_Turn)//プレイたー１遅れて呼び出す
+        if (P1_Turn)//プレイヤー１呼び出す
             MinoMovememt1();
-        if (P2_Turn)//プレイヤー２遅れて呼び出す
+        if (P2_Turn)//プレイヤー２呼び出す
             MinoMovememt2();
     }
     //プレイヤー１
