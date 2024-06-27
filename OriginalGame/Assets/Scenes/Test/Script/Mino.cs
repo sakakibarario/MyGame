@@ -9,8 +9,8 @@ public class Mino : MonoBehaviour
     public static float fallTime = 1.0f;
 
     //デバフ、バフ効果時間
-    private int DebuffTime  = 0;
-    private int BuffTime = 0; 
+    private static int DebuffTime  = 0;
+    public static int BuffTime; 
 
     // ステージの大きさ
     private static int width = 10;
@@ -29,29 +29,42 @@ public class Mino : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        DebuffTimeCount();
+        //BuffTimeCount();
+
         //効果時間終了
-        if(DebuffTime == 0)
+        if (DebuffTime == 0)
             FindObjectOfType<StatusManagement>().divide(StatusManagement.EffectState.DeBuffEffect);
         if (BuffTime == 0)
             FindObjectOfType<StatusManagement>().divide(StatusManagement.EffectState.BuffEffect);
-
-        if (DebuffTime > 0)
-        {
-            DebuffTime--;
-        }
-        if (BuffTime > 0)
-        {
-            BuffTime--;
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(BuffTime);
         if (P1_Turn)//プレイヤー１呼び出す
             MinoMovememt1();
         if (P2_Turn)//プレイヤー２呼び出す
             MinoMovememt2();
+    }
+
+    private void DebuffTimeCount()
+    {
+        if (DebuffTime > 0)
+        {
+            DebuffTime--;
+
+        }
+    }
+    private void BuffTimeCount()
+    {
+        if (BuffTime > 0)
+        {
+            BuffTime--;
+
+        }
     }
 
     //デバフ時間

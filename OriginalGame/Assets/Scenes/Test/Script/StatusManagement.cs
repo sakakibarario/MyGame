@@ -28,7 +28,7 @@ public class StatusManagement : MonoBehaviour
     private float MainFallTime = 1.0f; //Mino通常落下スピード
     private int   isRecovery   = 10;   //回復量
     private bool  OnDebuffFlag = false;//デバフフラグ
-    private bool  OnBuffFlag   = false;//バフフラグ
+    private static bool   OnBuffFlag   = false;//バフフラグ
     //public  int   DebuffTime   = 1;    //効果時間
     //public  int   BuffTime     = 1;    //効果時間
 
@@ -50,7 +50,18 @@ public class StatusManagement : MonoBehaviour
         //currentEnemyHp = EnemyMaxHP;
     }
 
-   
+    private void Update()
+    {
+        Debug.Log(OnBuffFlag);
+        if (Input.GetButtonDown("Fire1"))
+        {
+            Debug.Log("2222");
+            OnBuffFlag = true;
+            FindObjectOfType<Mino>().EffectDebuffTime(2);
+        }
+           
+    }
+
 
     public void AttackHandle()
     {
