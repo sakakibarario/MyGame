@@ -17,24 +17,7 @@ public class GameManagement : MonoBehaviour
     {
       
     }
-    // ゲーム開始前の状態に戻す
-    private void Initialize()
-    {
-      
-
-    }
-    public void TimeManagement()
-    {
-      
-
-    }
-
-    // スコアの追加
-    public void AddScore()
-    {
-     
-
-    }
+    
 
     // GameOverしたときの処理
     public void GameOver()

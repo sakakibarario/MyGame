@@ -30,7 +30,6 @@ public class StatusManagement : MonoBehaviour
     private int   EffectCount  = 1;     //効果の継続時間
     private static bool OnDebuffFlag = false;//デバフフラグ
     private static bool OnBuffFlag   = false;//バフフラグ
-    private static bool DeleteBuffMinoFlag = false;//デリートバフみのフラグ
    
     public static int DebuffTime = 0;       //効果時間
     public static int BuffTime = 0;         //効果時間
@@ -61,7 +60,11 @@ public class StatusManagement : MonoBehaviour
         if (BuffTime == 0)      
             OnBuffFlag = false;   
         if (DebuffTime == 0)
+        {
+            Mino.fallTime = MainFallTime;
             OnDebuffFlag = false;
+        }
+           
     }
 
     //デバフの継続時間

@@ -13,6 +13,7 @@ public class SpawnMino : MonoBehaviour
 
     public void NewMino()
     {
+        //MinoÇÃê∂ê¨
         Instantiate(Minos[Random.Range(0, Minos.Length)], transform.position, Quaternion.identity);
     }
 }
