@@ -27,10 +27,14 @@ public class StatusManagement : MonoBehaviour
     private float isDebuff 　  = 0.4f; //Mino落下スピード
     private float MainFallTime = 1.0f; //Mino通常落下スピード
     private int   isRecovery   = 10;   //回復量
-    private bool  OnDebuffFlag = false;//デバフフラグ
-    private static bool   OnBuffFlag   = false;//バフフラグ
-    //public  int   DebuffTime   = 1;    //効果時間
-    //public  int   BuffTime     = 1;    //効果時間
+    private int   EffectCount  = 1;     //効果の継続時間
+    private static bool OnDebuffFlag = false;//デバフフラグ
+    private static bool OnBuffFlag   = false;//バフフラグ
+    private static bool DeleteBuffMinoFlag = false;//デリートバフみのフラグ
+   
+    public static int DebuffTime = 0;       //効果時間
+    public static int BuffTime = 0;         //効果時間
+   
 
     //効果ステート
     public enum EffectState
@@ -53,19 +57,26 @@ public class StatusManagement : MonoBehaviour
     private void Update()
     {
         Debug.Log(OnBuffFlag);
-        if (Input.GetButtonDown("Fire1"))
-        {
-            Debug.Log("2222");
-            OnBuffFlag = true;
-            FindObjectOfType<Mino>().EffectDebuffTime(2);
-        }
-           
+
+        if (BuffTime == 0)      
+            OnBuffFlag = false;   
+        if (DebuffTime == 0)
+            OnDebuffFlag = false;
     }
 
+    //デバフの継続時間
+    public void DebuffCount()
+    {
+        DebuffTime--;
+    }
+    //バフの継続時間
+    public void BuffCount()
+    {
+        BuffTime--;
+    }
 
     public void AttackHandle()
     {
-        //Debug.Log("ダメージ");
         if (!OnBuffFlag)
         {
             if (Mino.P1_Turn)
@@ -90,20 +101,17 @@ public class StatusManagement : MonoBehaviour
         if(!OnDebuffFlag)
         {
             Mino.fallTime = isDebuff;
-            FindObjectOfType<Mino>().EffectDebuffTime(1);
+            DebuffTime = EffectCount;
             OnDebuffFlag = true;
         }  
     }
 
-   
-
     public void BuffHandle()
     {
-        Debug.Log("バフスタート");
-       
         OnBuffFlag = true;
+        Debug.Log("バフスタート");
+        BuffTime = EffectCount;
         Debug.Log(OnBuffFlag);
-        FindObjectOfType<Mino>().EffectDebuffTime(1);
     }
 
     public void RecoveryHandle()
@@ -131,20 +139,5 @@ public class StatusManagement : MonoBehaviour
     public void NormalHandle()
     {
 
-    }
-
-    public void divide(EffectState state)
-    {
-        switch (state)
-        {
-            case EffectState.DeBuffEffect:
-                Mino.fallTime = MainFallTime;
-                OnDebuffFlag = false;
-                break;
-            case EffectState.BuffEffect:
-                Debug.Log("バフ終了");
-                OnBuffFlag = false;
-                break;
-        }
     }
 }

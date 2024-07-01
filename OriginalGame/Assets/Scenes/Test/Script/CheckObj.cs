@@ -31,6 +31,11 @@ public class CheckObj : MonoBehaviour
     public void BuffEffect()
     {
         Debug.Log("buff");
+        Invoke("Buff2", 0.7f);
+    }
+
+    public void Buff2()
+    {
         FindObjectOfType<StatusManagement>().BuffHandle();
     }
 }
