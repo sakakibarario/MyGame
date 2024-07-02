@@ -35,7 +35,6 @@ public class Mino : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(fallTime);
         if (P1_Turn)//プレイヤー１呼び出す
             MinoMovememt1();
         if (P2_Turn)//プレイヤー２呼び出す

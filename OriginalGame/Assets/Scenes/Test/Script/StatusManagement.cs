@@ -55,15 +55,13 @@ public class StatusManagement : MonoBehaviour
 
     private void Update()
     {
-
         if (BuffTime == 0)      
             OnBuffFlag = false;   
         if (DebuffTime == 0)
         {
             Mino.fallTime = MainFallTime;
             OnDebuffFlag = false;
-        }
-           
+        } 
     }
 
     //デバフの継続時間
@@ -83,17 +81,21 @@ public class StatusManagement : MonoBehaviour
         {
             if (Mino.P1_Turn)
             {
+                FindObjectOfType<CharacterAnimation>().Player1AttackAnime();
                 //Hpを減らす
                 current2Hp -= isDamage;
                 Player2hpBar.fillAmount = (float)current2Hp / (float)Player2MaxHP;
                 Debug.Log("2減らす");
+                FindObjectOfType<CharacterAnimation>().Player2DamageAnime();
             }
             if (Mino.P2_Turn)
             {
+                FindObjectOfType<CharacterAnimation>().Player2AttackAnime();
                 //Hpを減らす
                 current1Hp -= isDamage;
                 Player1hpBar.fillAmount = (float)current1Hp / (float)Player1MaxHP;
                 Debug.Log("1減らす");
+                FindObjectOfType<CharacterAnimation>().Player1DamageAnime();
             }
         }
     }
@@ -102,6 +104,14 @@ public class StatusManagement : MonoBehaviour
     {
         if(!OnDebuffFlag)
         {
+            if (Mino.P1_Turn)
+            {
+                FindObjectOfType<CharacterAnimation>().Player1DebuffAnime();
+            }
+            if (Mino.P2_Turn)
+            {
+                FindObjectOfType<CharacterAnimation>().Player2DebuffAnime();
+            }
             Mino.fallTime = isDebuff;
             DebuffTime = EffectCount;
             OnDebuffFlag = true;
@@ -110,6 +120,14 @@ public class StatusManagement : MonoBehaviour
 
     public void BuffHandle()
     {
+        if (Mino.P1_Turn)
+        {
+            FindObjectOfType<CharacterAnimation>().Player1BuffAnime();
+        }
+        if (Mino.P2_Turn)
+        {
+            FindObjectOfType<CharacterAnimation>().Player2BuffAnime();
+        }
         OnBuffFlag = true;
         Debug.Log("バフスタート");
         BuffTime = EffectCount;
@@ -122,6 +140,7 @@ public class StatusManagement : MonoBehaviour
         {
             if (Mino.P1_Turn)
             {
+                FindObjectOfType<CharacterAnimation>().Player1RecoveryAnime();
                 //Hpを回復
                 current1Hp += isRecovery;
                 Player1hpBar.fillAmount = (float)current1Hp / (float)Player1MaxHP;
@@ -131,6 +150,7 @@ public class StatusManagement : MonoBehaviour
         {
             if (Mino.P2_Turn)
             {
+                FindObjectOfType<CharacterAnimation>().Player2RecoveryAnime();
                 //Hpを回復
                 current2Hp += isRecovery;
                 Player2hpBar.fillAmount = (float)current2Hp / (float)Player2MaxHP;

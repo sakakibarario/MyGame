@@ -71,7 +71,7 @@ public class RandomObj : MonoBehaviour
 
     private void OnDestroy()
     {
-        Debug.Log("Destroyed");
+        //Debug.Log("Destroyed");
         switch(Effects){
             case (int)effect.DEBUFF:
                 FindObjectOfType<CheckObj>().DebuffEffect();

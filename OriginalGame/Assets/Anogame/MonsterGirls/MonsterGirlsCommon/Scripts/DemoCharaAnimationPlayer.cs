@@ -26,7 +26,7 @@ namespace anogamelib
 		public void OnAnimationIndex(int _iIndex)
 		{
 			m_iAnimationIndex = _iIndex;
-			//Debug.Log(AnimationName[_iIndex]);
+			Debug.Log(m_iAnimationIndex);
 		}
 
 		public void PlayAnimation()

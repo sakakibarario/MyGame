@@ -10,6 +10,12 @@ namespace anogamelib
     {
         private Animator m_animator;
 
+        //characterの向き
+        [SerializeField]
+        private float Fx;
+        [SerializeField]
+        private float Fy;
+
         private int m_iCurrentTexutureIndex;
         [SerializeField]
         private Texture2D[] m_texture2DArr;
@@ -37,21 +43,21 @@ namespace anogamelib
             }
             m_iCurrentTexutureIndex = 0;
             m_animator = GetComponent<Animator>();
-            m_animator.SetFloat("x", 0f);
-            m_animator.SetFloat("y", -1f);
+            m_animator.SetFloat("x", Fx);
+            m_animator.SetFloat("y", Fy);
             OnChangeSkin(0);
         }
 
         private void Update()
         {
-            float fX = Input.GetAxisRaw("Horizontal");
-            float fY = Input.GetAxisRaw("Vertical");
+            //float fX = Input.GetAxisRaw("Horizontal");
+            //float fY = Input.GetAxisRaw("Vertical");
 
-            if (fX != 0f || fY != 0f)
-            {
-                m_animator.SetFloat("x", fX);
-                m_animator.SetFloat("y", fY);
-            }
+            //if (fX != 0f || fY != 0f)
+            //{
+            //    m_animator.SetFloat("x", fX);
+            //    m_animator.SetFloat("y", fY);
+            //}
         }
         public void OnChangeSleepToggle(bool _isSleep)
         {
