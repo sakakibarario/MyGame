@@ -86,7 +86,7 @@ public class StatusManagement : MonoBehaviour
                 current2Hp -= isDamage;
                 Player2hpBar.fillAmount = (float)current2Hp / (float)Player2MaxHP;
                 Debug.Log("2Œ¸‚ç‚·");
-                FindObjectOfType<CharacterAnimation>().Player2DamageAnime();
+                FindObjectOfType<CharacterAnimation>().Invoke("Player2DamageAnime",0.5f);
             }
             if (Mino.P2_Turn)
             {
@@ -95,7 +95,7 @@ public class StatusManagement : MonoBehaviour
                 current1Hp -= isDamage;
                 Player1hpBar.fillAmount = (float)current1Hp / (float)Player1MaxHP;
                 Debug.Log("1Œ¸‚ç‚·");
-                FindObjectOfType<CharacterAnimation>().Player1DamageAnime();
+                FindObjectOfType<CharacterAnimation>().Invoke("Player1DamageAnime", 0.5f);
             }
         }
     }
