@@ -29,33 +29,33 @@ public class RandomObj : MonoBehaviour
 
         int rnd = Random.Range(0, 11);// ランダムな整数を生成
 
-        if (rnd >= 0 && rnd <= 6)
+        if (rnd >= 0 && rnd <= 3)
         {
-            //ブルー
+            //ブルーノーマル
             SpriteRenderer.color = new Color32(40, 0, 255, 255);
             Effects = (int)effect.NORMAL;
         }
-        if(rnd == 7)
+        if(rnd >= 4 && rnd <= 7)
         {
-            //レッド
+            //レッド攻撃
             SpriteRenderer.color = new Color32(255, 0, 0, 255);
             Effects = (int)effect.ATTACK;
         }
         if (rnd == 8)
         {
-            //イエロー
+            //イエローバフ
             SpriteRenderer.color = new Color32(255, 255, 0, 255);
             Effects = (int)effect.BUFF;
         }
         if (rnd == 9)
         {
-            //グリーン
+            //グリーン回復
             SpriteRenderer.color = new Color32(0, 255, 90, 255);
             Effects = (int)effect.RECOVERY;
         }
         if (rnd == 10)
         {
-            //パープル
+            //パープルデバフ
             SpriteRenderer.color = new Color32(160, 0, 255, 255);
             Effects = (int)effect.DEBUFF;
         }
