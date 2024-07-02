@@ -55,7 +55,6 @@ public class StatusManagement : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(OnBuffFlag);
 
         if (BuffTime == 0)      
             OnBuffFlag = false;   
