@@ -9,6 +9,8 @@ public class StatusManagement : MonoBehaviour
 {
     //バフグラフィック
     public GameObject PlayerBuffCircle;
+    GameObject Player1;
+    GameObject Player2;
 
     //HPバーイメージ用
     [SerializeField] public Image Player1hpBar;
@@ -54,6 +56,9 @@ public class StatusManagement : MonoBehaviour
         current1Hp = Player1MaxHP;
         current2Hp = Player2MaxHP;
         //currentEnemyHp = EnemyMaxHP;
+
+        Player1 = GameObject.FindWithTag("Player");
+        Player2 = GameObject.FindWithTag("Player2");
     }
 
     private void Update()
@@ -84,32 +89,41 @@ public class StatusManagement : MonoBehaviour
 
     public void AttackHandle()
     {
+        StartCoroutine(AttackStart());
+    }
+    IEnumerator AttackStart()
+    {
         if (Mino.P1_Turn)
             FindObjectOfType<CharacterAnimation>().Player1AttackAnime();
         if (Mino.P2_Turn)
             FindObjectOfType<CharacterAnimation>().Player2AttackAnime();
+        yield return new WaitForSeconds(0.7f);//遅延
+
         if (!OnBuffFlag)
         {
             if (Mino.P1_Turn)
             {
-                FindObjectOfType<CharacterAnimation>().Invoke("Player2DamageAnime", 0.5f);
+                FindObjectOfType<CharacterAnimation>().Player2DamageAnime();
                 //Hpを減らす
+                yield return new WaitForSeconds(0.5f);//遅延
                 current2Hp -= isDamage;
-                Player2hpBar.fillAmount = (float)current2Hp / (float)Player2MaxHP;               
+                Player2hpBar.fillAmount = (float)current2Hp / (float)Player2MaxHP;
             }
             if (Mino.P2_Turn)
             {
-                FindObjectOfType<CharacterAnimation>().Invoke("Player1DamageAnime", 0.5f);
+                FindObjectOfType<CharacterAnimation>().Player1DamageAnime();
                 //Hpを減らす
+                yield return new WaitForSeconds(0.5f);//遅延
                 current1Hp -= isDamage;
                 Player1hpBar.fillAmount = (float)current1Hp / (float)Player1MaxHP;
             }
         }
+
+        yield break;
     }
 
     public void DebuffHandle()
     {
-
         if (Mino.P1_Turn)
         {
             FindObjectOfType<CharacterAnimation>().Player1DebuffAnime();
@@ -121,51 +135,76 @@ public class StatusManagement : MonoBehaviour
         Mino.fallTime = isDebuff;
         DebuffTime = EffectCount;
         OnDebuffFlag = true;
-
     }
 
     public void BuffHandle()
     {
-        if (Mino.P1_Turn)
-        {
-            //バフ背景
-            //Instantiate(PlayerBuffCircle, transform.position, Quaternion.identity);
-            FindObjectOfType<CharacterAnimation>().Player1BuffAnime();
-        }
-        if (Mino.P2_Turn)
-        {
-            //バフ背景
-            //Instantiate(PlayerBuffCircle, transform.position, Quaternion.identity);
-            FindObjectOfType<CharacterAnimation>().Player2BuffAnime();
-        }
+        //バフコルーチン
+        StartCoroutine(BuffStart());
+       
         OnBuffFlag = true;
         Debug.Log("バフスタート");
         BuffTime = EffectCount;
         Debug.Log(OnBuffFlag);
     }
 
+    IEnumerator BuffStart()
+    {
+        if (Mino.P1_Turn)
+        {
+            //アニメーション再生
+            FindObjectOfType<CharacterAnimation>().Player1BuffAnime();
+            yield return new WaitForSeconds(1.5f);//遅延
+            //バフ背景
+            Instantiate(PlayerBuffCircle, new Vector2(Player1.transform.position.x - 0.3f, Player1.transform.position.y), Quaternion.identity);
+        }
+        if (Mino.P2_Turn)
+        {
+            //アニメーション再生
+            FindObjectOfType<CharacterAnimation>().Player2BuffAnime();
+            yield return new WaitForSeconds(1.5f);//遅延
+            //バフ背景
+            Instantiate(PlayerBuffCircle, Player2.transform.position, Quaternion.identity);
+        }
+
+        yield break;
+    }
+
     public void RecoveryHandle()
     {
-        if(current1Hp <= Player1MaxHP)
+        //回復コルーチン
+        StartCoroutine(RecoveryStart());
+    }
+
+    IEnumerator RecoveryStart()
+    {
+        //HPがマックスでないなら
+        if (current1Hp < Player1MaxHP)
         {
             if (Mino.P1_Turn)
             {
+                //アニメーション再生
                 FindObjectOfType<CharacterAnimation>().Player1RecoveryAnime();
+                yield return new WaitForSeconds(1.5f);//遅延
                 //Hpを回復
                 current1Hp += isRecovery;
-                Player1hpBar.fillAmount = (float)current1Hp / (float)Player1MaxHP;
+                Player1hpBar.fillAmount = (float)current1Hp / (float)Player1MaxHP;//HPバーに判定
             }
         }
-        if (current2Hp <= Player2MaxHP)
+        //HPがマックスでないなら
+        if (current2Hp < Player2MaxHP)
         {
             if (Mino.P2_Turn)
             {
+                //アニメーション再生
                 FindObjectOfType<CharacterAnimation>().Player2RecoveryAnime();
+                yield return new WaitForSeconds(1.5f);//遅延
                 //Hpを回復
                 current2Hp += isRecovery;
-                Player2hpBar.fillAmount = (float)current2Hp / (float)Player2MaxHP;
+                Player2hpBar.fillAmount = (float)current2Hp / (float)Player2MaxHP;//HPバーに判定
             }
         }
+        yield break;
     }
 
     public void NormalHandle()
