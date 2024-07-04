@@ -1316,7 +1316,7 @@ Transform:
   m_GameObject: {fileID: 1312175804}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 13, y: 4.6, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 1}
+  m_LocalScale: {x: 3.5, y: 3.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 337554211}
@@ -1618,8 +1618,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1936244839}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4, y: 4.6, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 1}
+  m_LocalPosition: {x: -3.7, y: 4.6, z: 0}
+  m_LocalScale: {x: 3.5, y: 3.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 627641436}
@@ -1825,6 +1825,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83671f581ad1beb41ba4b09eeae88c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerBuffCircle: {fileID: 2868777840830179787, guid: e0fc52e3e40132e40ac5ad2e9e20a5bf, type: 3}
   Player1hpBar: {fileID: 633546256}
   Player2hpBar: {fileID: 1551500778}
 --- !u!1 &2121313751 stripped
@@ -1844,5 +1845,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83671f581ad1beb41ba4b09eeae88c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerBuffCircle: {fileID: 2868777840830179787, guid: e0fc52e3e40132e40ac5ad2e9e20a5bf, type: 3}
   Player1hpBar: {fileID: 633546256}
   Player2hpBar: {fileID: 1551500778}

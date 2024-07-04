@@ -25,21 +25,12 @@ public class CheckObj : MonoBehaviour
     public void DebuffEffect()
     {
         Debug.Log("Debuff");
-        Invoke("DeBuff2", 0.5f);//’x‰„
+        FindObjectOfType<StatusManagement>().Invoke("DebuffHandle", 0.5f);
     }
 
     public void BuffEffect()
     {
         Debug.Log("buff");
-        Invoke("Buff2", 0.7f);//’x‰„
-    }
-
-    public void Buff2()
-    {
-        FindObjectOfType<StatusManagement>().BuffHandle();
-    }
-    public void DeBuff2()
-    {
-        FindObjectOfType<StatusManagement>().DebuffHandle();
+        FindObjectOfType<StatusManagement>().Invoke("BuffHandle", 0.7f);
     }
 }

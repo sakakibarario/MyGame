@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 public class StatusManagement : MonoBehaviour
 {
+    //バフグラフィック
+    public GameObject PlayerBuffCircle;
+
     //HPバーイメージ用
     [SerializeField] public Image Player1hpBar;
     [SerializeField] public Image Player2hpBar;
@@ -62,6 +65,10 @@ public class StatusManagement : MonoBehaviour
             Mino.fallTime = MainFallTime;
             OnDebuffFlag = false;
         } 
+
+        //バフ背景削除
+        
+
     }
 
     //デバフの継続時間
@@ -77,55 +84,58 @@ public class StatusManagement : MonoBehaviour
 
     public void AttackHandle()
     {
+        if (Mino.P1_Turn)
+            FindObjectOfType<CharacterAnimation>().Player1AttackAnime();
+        if (Mino.P2_Turn)
+            FindObjectOfType<CharacterAnimation>().Player2AttackAnime();
         if (!OnBuffFlag)
         {
             if (Mino.P1_Turn)
             {
-                FindObjectOfType<CharacterAnimation>().Player1AttackAnime();
+                FindObjectOfType<CharacterAnimation>().Invoke("Player2DamageAnime", 0.5f);
                 //Hpを減らす
                 current2Hp -= isDamage;
-                Player2hpBar.fillAmount = (float)current2Hp / (float)Player2MaxHP;
-                Debug.Log("2減らす");
-                FindObjectOfType<CharacterAnimation>().Invoke("Player2DamageAnime",0.5f);
+                Player2hpBar.fillAmount = (float)current2Hp / (float)Player2MaxHP;               
             }
             if (Mino.P2_Turn)
             {
-                FindObjectOfType<CharacterAnimation>().Player2AttackAnime();
+                FindObjectOfType<CharacterAnimation>().Invoke("Player1DamageAnime", 0.5f);
                 //Hpを減らす
                 current1Hp -= isDamage;
                 Player1hpBar.fillAmount = (float)current1Hp / (float)Player1MaxHP;
-                Debug.Log("1減らす");
-                FindObjectOfType<CharacterAnimation>().Invoke("Player1DamageAnime", 0.5f);
             }
         }
     }
 
     public void DebuffHandle()
     {
-        if(!OnDebuffFlag)
+
+        if (Mino.P1_Turn)
         {
-            if (Mino.P1_Turn)
-            {
-                FindObjectOfType<CharacterAnimation>().Player1DebuffAnime();
-            }
-            if (Mino.P2_Turn)
-            {
-                FindObjectOfType<CharacterAnimation>().Player2DebuffAnime();
-            }
-            Mino.fallTime = isDebuff;
-            DebuffTime = EffectCount;
-            OnDebuffFlag = true;
-        }  
+            FindObjectOfType<CharacterAnimation>().Player1DebuffAnime();
+        }
+        if (Mino.P2_Turn)
+        {
+            FindObjectOfType<CharacterAnimation>().Player2DebuffAnime();
+        }
+        Mino.fallTime = isDebuff;
+        DebuffTime = EffectCount;
+        OnDebuffFlag = true;
+
     }
 
     public void BuffHandle()
     {
         if (Mino.P1_Turn)
         {
+            //バフ背景
+            //Instantiate(PlayerBuffCircle, transform.position, Quaternion.identity);
             FindObjectOfType<CharacterAnimation>().Player1BuffAnime();
         }
         if (Mino.P2_Turn)
         {
+            //バフ背景
+            //Instantiate(PlayerBuffCircle, transform.position, Quaternion.identity);
             FindObjectOfType<CharacterAnimation>().Player2BuffAnime();
         }
         OnBuffFlag = true;

@@ -72,7 +72,7 @@ namespace anogamelib
                 m_iCurrentTexutureIndex = m_texture2DArr.Length - 1;
             }
             m_iCurrentTexutureIndex %= m_texture2DArr.Length;
-            m_overrideSprite.overrideTexture = m_texture2DArr[m_iCurrentTexutureIndex];
+            //m_overrideSprite.overrideTexture = m_texture2DArr[m_iCurrentTexutureIndex];
         }
 
 
