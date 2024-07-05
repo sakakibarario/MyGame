@@ -42,7 +42,6 @@ public class CharacterAnimation : MonoBehaviour
     //ダメージアニメ
     public void Player1DamageAnime()
     {
-        Debug.Log("アニメーションダメージ");
         m_iAnimationIndex1 = Damage;
         PlayAnime1();
     }
@@ -103,7 +102,6 @@ public class CharacterAnimation : MonoBehaviour
     //アニメーションの再生
     public void PlayAnime1()
     {
-        Debug.Log("アニメーション再生");
         m_animatorChara1.SetTrigger(AnimationName[m_iAnimationIndex1]);
     }
     public void PlayAnime2()

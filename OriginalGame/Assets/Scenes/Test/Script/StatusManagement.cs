@@ -29,15 +29,16 @@ public class StatusManagement : MonoBehaviour
 
     //効果
     private int   isDamage 　  = 10;   //与えるダメージ
-    private float isDebuff 　  = 0.4f; //Mino落下スピード
-    private float MainFallTime = 1.0f; //Mino通常落下スピード
+    private float isDebuff 　  = 0.2f; //Mino落下スピード
+    private float MainFallTime = 0.6f; //Mino通常落下スピード
     private int   isRecovery   = 10;   //回復量
     private int   EffectCount  = 1;     //効果の継続時間
-    private static bool OnDebuffFlag = false;//デバフフラグ
     private static bool OnBuffFlag   = false;//バフフラグ
-   
+    private bool CircleFlag = false;      //バフサークルフラグ
+
     public static int DebuffTime = 0;       //効果時間
     public static int BuffTime = 0;         //効果時間
+
    
 
     //効果ステート
@@ -63,16 +64,25 @@ public class StatusManagement : MonoBehaviour
 
     private void Update()
     {
-        if (BuffTime == 0)      
-            OnBuffFlag = false;   
+        if (BuffTime == 0 && CircleFlag)
+        {
+            FindObjectOfType<BuffCircle>().CircleDelete();
+            OnBuffFlag = false;
+            CircleFlag = false;
+        }
+           
         if (DebuffTime == 0)
         {
             Mino.fallTime = MainFallTime;
-            OnDebuffFlag = false;
         } 
 
-        //バフ背景削除
-        
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            current2Hp -= isDamage;
+            Player2hpBar.fillAmount = (float)current2Hp / (float)Player2MaxHP;
+            current1Hp -= isDamage;
+            Player1hpBar.fillAmount = (float)current1Hp / (float)Player1MaxHP;
+        }
 
     }
 
@@ -134,39 +144,42 @@ public class StatusManagement : MonoBehaviour
         }
         Mino.fallTime = isDebuff;
         DebuffTime = EffectCount;
-        OnDebuffFlag = true;
     }
 
     public void BuffHandle()
     {
         //バフコルーチン
         StartCoroutine(BuffStart());
-       
-        OnBuffFlag = true;
-        Debug.Log("バフスタート");
-        BuffTime = EffectCount;
-        Debug.Log(OnBuffFlag);
     }
 
     IEnumerator BuffStart()
     {
-        if (Mino.P1_Turn)
+        //バフの継続時間
+        BuffTime = EffectCount;
+        if (!CircleFlag)//Circleを生成していないなら
         {
-            //アニメーション再生
-            FindObjectOfType<CharacterAnimation>().Player1BuffAnime();
-            yield return new WaitForSeconds(1.5f);//遅延
-            //バフ背景
-            Instantiate(PlayerBuffCircle, new Vector2(Player1.transform.position.x - 0.3f, Player1.transform.position.y), Quaternion.identity);
+            //P1
+            if (Mino.P1_Turn)
+            {
+                CircleFlag = true;
+                //アニメーション再生
+                FindObjectOfType<CharacterAnimation>().Player1BuffAnime();
+                yield return new WaitForSeconds(1.5f);//遅延
+                //バフ背景
+                Instantiate(PlayerBuffCircle, new Vector2(Player1.transform.position.x - 0.3f, Player1.transform.position.y), Quaternion.identity);
+            }
+            //P2
+            if (Mino.P2_Turn)
+            {
+                CircleFlag = true;
+                //アニメーション再生
+                FindObjectOfType<CharacterAnimation>().Player2BuffAnime();
+                yield return new WaitForSeconds(1.5f);//遅延
+             　 //バフ背景
+                Instantiate(PlayerBuffCircle, Player2.transform.position, Quaternion.identity);
+            }
+            OnBuffFlag = true;
         }
-        if (Mino.P2_Turn)
-        {
-            //アニメーション再生
-            FindObjectOfType<CharacterAnimation>().Player2BuffAnime();
-            yield return new WaitForSeconds(1.5f);//遅延
-            //バフ背景
-            Instantiate(PlayerBuffCircle, Player2.transform.position, Quaternion.identity);
-        }
-
         yield break;
     }
 
@@ -181,11 +194,12 @@ public class StatusManagement : MonoBehaviour
         //HPがマックスでないなら
         if (current1Hp < Player1MaxHP)
         {
+            //P1
             if (Mino.P1_Turn)
             {
                 //アニメーション再生
                 FindObjectOfType<CharacterAnimation>().Player1RecoveryAnime();
-                yield return new WaitForSeconds(1.5f);//遅延
+                yield return new WaitForSeconds(2.3f);//遅延
                 //Hpを回復
                 current1Hp += isRecovery;
                 Player1hpBar.fillAmount = (float)current1Hp / (float)Player1MaxHP;//HPバーに判定
@@ -194,11 +208,12 @@ public class StatusManagement : MonoBehaviour
         //HPがマックスでないなら
         if (current2Hp < Player2MaxHP)
         {
+            //P2
             if (Mino.P2_Turn)
             {
                 //アニメーション再生
                 FindObjectOfType<CharacterAnimation>().Player2RecoveryAnime();
-                yield return new WaitForSeconds(1.5f);//遅延
+                yield return new WaitForSeconds(2.3f);//遅延
                 //Hpを回復
                 current2Hp += isRecovery;
                 Player2hpBar.fillAmount = (float)current2Hp / (float)Player2MaxHP;//HPバーに判定

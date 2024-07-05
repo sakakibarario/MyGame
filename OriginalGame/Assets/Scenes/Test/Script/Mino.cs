@@ -6,7 +6,7 @@ public class Mino : MonoBehaviour
 {
     public float previousTime;
     // minoが落ちるタイム
-    public static float fallTime = 1.0f;
+    public static float fallTime = 0.6f;
 
     // ステージの大きさ
     private static int width = 10;
