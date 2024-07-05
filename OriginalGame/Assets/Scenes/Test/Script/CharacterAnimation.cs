@@ -17,6 +17,9 @@ public class CharacterAnimation : MonoBehaviour
     private int Damage = 4;  //ダメージ
     private int Orb    = 5;  //バフ
 
+    //勝利フラグ
+    private bool WinFlag = false;
+
     private readonly string[] AnimationName = new string[]
     {
             "attack",
@@ -35,7 +38,7 @@ public class CharacterAnimation : MonoBehaviour
         //if (Input.GetKeyDown(KeyCode.C))
         //{
         //    Debug.Log("ゲットｃ");
-        //    Player1DamageAnime();
+        //    Player1WinAnime();
         //}
     }
 
@@ -99,13 +102,35 @@ public class CharacterAnimation : MonoBehaviour
         PlayAnime2();
     }
 
+    //勝利アニメ
+    public void Player1WinAnime()
+    {
+        WinFlag = true;
+        m_iAnimationIndex1 = Win;
+        PlayAnime1();
+    }
+    public void Player2WinAnime()
+    {
+        WinFlag = true;
+        m_iAnimationIndex1 = Win;
+        PlayAnime2();
+    }
+
     //アニメーションの再生
     public void PlayAnime1()
     {
         m_animatorChara1.SetTrigger(AnimationName[m_iAnimationIndex1]);
+        if (WinFlag)
+        {
+
+        }
     }
     public void PlayAnime2()
     {
         m_animatorChara2.SetTrigger(AnimationName[m_iAnimationIndex2]);
+        if (WinFlag)
+        {
+
+        }
     }
 }
