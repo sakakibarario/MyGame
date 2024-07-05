@@ -1103,10 +1103,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79abd16ebfac4eb4c8941562c14be73f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneNameR: 
-  sceneNameG: 
-  sceneNameT: 
-  sceneNameD: 
+  sceneNameR: Title
+  sceneNameG: Title
+  sceneNameT: Title
+  sceneNameD: Title
   loadToColor: {r: 0, g: 0, b: 0, a: 1}
   fadeSpeed: 3
 --- !u!1 &1300013862

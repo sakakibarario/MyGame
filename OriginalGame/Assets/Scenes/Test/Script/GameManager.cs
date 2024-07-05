@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
     void GameTitle()
     {
         Debug.Log("Title");
-      
+        Initiate.Fade(sceneNameT, loadToColor, fadeSpeed);
     }
 
     //ƒ|[ƒYˆ—

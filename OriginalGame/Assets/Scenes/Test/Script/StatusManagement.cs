@@ -64,24 +64,29 @@ public class StatusManagement : MonoBehaviour
 
     private void Update()
     {
+        //HPどちら方０になったら
+        if (current1Hp == 0)
+            FindObjectOfType<CharacterAnimation>().Player2WinAnime();
+        if (current2Hp == 0)
+            FindObjectOfType<CharacterAnimation>().Player1WinAnime();
+
+        //バフのリセット
         if (BuffTime == 0 && CircleFlag)
         {
             FindObjectOfType<BuffCircle>().CircleDelete();
             OnBuffFlag = false;
             CircleFlag = false;
         }
-           
+        //デバフのリセット
         if (DebuffTime == 0)
         {
             Mino.fallTime = MainFallTime;
-        } 
+        }
 
         if(Input.GetKeyDown(KeyCode.C))
         {
             current2Hp -= isDamage;
             Player2hpBar.fillAmount = (float)current2Hp / (float)Player2MaxHP;
-            current1Hp -= isDamage;
-            Player1hpBar.fillAmount = (float)current1Hp / (float)Player1MaxHP;
         }
 
     }

@@ -27,7 +27,7 @@ public class RandomObj : MonoBehaviour
     {
         SpriteRenderer = GetComponent<SpriteRenderer>();
 
-        int rnd = Random.Range(9, 10);// ƒ‰ƒ“ƒ_ƒ€‚È®”‚ð¶¬
+        int rnd = Random.Range(0, 11);// ƒ‰ƒ“ƒ_ƒ€‚È®”‚ð¶¬
 
         if (rnd >= 0 && rnd <= 3)
         {

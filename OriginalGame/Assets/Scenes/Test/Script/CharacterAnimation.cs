@@ -122,7 +122,9 @@ public class CharacterAnimation : MonoBehaviour
         m_animatorChara1.SetTrigger(AnimationName[m_iAnimationIndex1]);
         if (WinFlag)
         {
-
+            FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Title);
+            
+           //FindObjectOfType<GameManager>().Invoke("dispatch(GameManager.GameState.Title)",0.5f);
         }
     }
     public void PlayAnime2()
@@ -130,7 +132,7 @@ public class CharacterAnimation : MonoBehaviour
         m_animatorChara2.SetTrigger(AnimationName[m_iAnimationIndex2]);
         if (WinFlag)
         {
-
+            FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Title);
         }
     }
 }
