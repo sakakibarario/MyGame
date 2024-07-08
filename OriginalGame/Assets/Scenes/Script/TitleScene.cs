@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class TitleScene : MonoBehaviour
 {
+    public static bool Startdelay = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +20,7 @@ public class TitleScene : MonoBehaviour
 
     public void OnClick()
     {
-        
+        Startdelay = true;
         int rnd = Random.Range(0, 2);
         //ƒ‰ƒ“ƒ_ƒ€‚Å‡”ÔŒˆ‚ß
         switch (rnd)

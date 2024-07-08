@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class CharacterAnimation : MonoBehaviour
 {
+    GameObject Player1;
+    GameObject Player2;
+    private  SpriteRenderer Sr1;
+    private SpriteRenderer Sr2;
 
     private int m_iAnimationIndex1 = 0;
     private int m_iAnimationIndex2 = 0;
@@ -30,12 +34,34 @@ public class CharacterAnimation : MonoBehaviour
             "orb",
     };
 
-    [SerializeField]private Animator m_animatorChara1;
+    [SerializeField] private Animator m_animatorChara1;
     [SerializeField] private Animator m_animatorChara2;
+
+    private void Start()
+    {
+        Player1 = GameObject.FindWithTag("Player");
+        Player2 = GameObject.FindWithTag("Player2");
+        Sr1 = Player1.GetComponent<SpriteRenderer>();
+        Sr2 = Player2.GetComponent<SpriteRenderer>(); 
+    }
 
     private void Update()
     {
-       
+        if (GameManager.GState == "Playing")
+        {
+            if (Mino.P1_Turn)
+            {
+                Sr1.color = new Color32(255, 255, 255, 140);
+            }
+            else
+                Sr1.color = new Color32(255, 255, 255, 255);
+            if (Mino.P2_Turn)
+            {
+                Sr2.color = new Color32(255, 255, 255, 140);
+            }
+            else
+                Sr2.color = new Color32(255, 255, 255, 255);
+        }
     }
 
     //ダメージアニメ
@@ -117,13 +143,21 @@ public class CharacterAnimation : MonoBehaviour
     {
         m_animatorChara1.SetTrigger(AnimationName[m_iAnimationIndex1]);
         if (WinFlag)
-            Invoke("TitleScene",6.0f);
+        {
+            Sr1.color = new Color32(255, 255, 255, 255);
+            Sr2.color = new Color32(255, 255, 255, 140);
+            Invoke("TitleScene", 5.0f);
+        }
     }
     public void PlayAnime2()
     {
         m_animatorChara2.SetTrigger(AnimationName[m_iAnimationIndex2]);
         if (WinFlag)
-            Invoke("TitleScene", 6.0f);
+        {
+            Sr2.color = new Color32(255, 255, 255, 255);
+            Sr1.color = new Color32(255, 255, 255, 140);
+            Invoke("TitleScene", 5.0f);
+        }
     }
 
     private void TitleScene()
