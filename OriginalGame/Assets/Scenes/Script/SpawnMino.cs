@@ -8,18 +8,12 @@ public class SpawnMino : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (TitleScene.Startdelay)
-        {
-            Invoke("NewMino", 1.0f);
-            TitleScene.Startdelay = false;
-        }        
-        else
-            NewMino();
+        Invoke("NewMino", 1.0f);
     }
 
     public void NewMino()
     {
         //MinoÇÃê∂ê¨
-        Instantiate(Minos[Random.Range(0, Minos.Length)], transform.position, Quaternion.identity);
+        Instantiate(Minos[Random.Range(0, Minos.Length)], new Vector2(transform.position.x, transform.position.y + 1.0f), Quaternion.identity);
     }
 }

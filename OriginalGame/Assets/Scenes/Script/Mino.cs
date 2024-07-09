@@ -81,9 +81,10 @@ public class Mino : MonoBehaviour
                 AddToGrid();
                 CheckLines();
                 this.enabled = false;
+
                 P2_Turn = true;
                 P1_Turn = false;
-                FindObjectOfType<SpawnMino>().NewMino();
+                FindObjectOfType<SpawnMino>().Invoke("NewMino", 1.0f);
             }
             previousTime = Time.time;
         }
@@ -140,7 +141,7 @@ public class Mino : MonoBehaviour
                 this.enabled = false;
                 P1_Turn = true;
                 P2_Turn = false;
-                FindObjectOfType<SpawnMino>().NewMino();
+                FindObjectOfType<SpawnMino>().Invoke("NewMino", 1.0f);
             }
             previousTime = Time.time;
         }
@@ -228,13 +229,13 @@ public class Mino : MonoBehaviour
                 // GameOverメソッドを呼び出す
                 Debug.Log("gameover");
                 //HPどちら方０になったら
-                if (P1_Turn)
+                if (P2_Turn)
                 {
                     Debug.Log("1win");
                     FindObjectOfType<CharacterAnimation>().Player1WinAnime();
                     GameManager.GState = "Title";
                 }
-                if (P2_Turn)
+                if (P1_Turn)
                 {
                     Debug.Log("2win");
                     FindObjectOfType<CharacterAnimation>().Player2WinAnime();

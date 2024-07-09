@@ -32,9 +32,13 @@ public class StatusManagement : MonoBehaviour
     private float isDebuff 　  = 0.2f; //Mino落下スピード
     private float MainFallTime = 0.6f; //Mino通常落下スピード
     private int   isRecovery   = 10;   //回復量
-    private int   EffectCount  = 1;     //効果の継続時間
+    private int   EffectCount  = 2;     //効果の継続時間
     private static bool OnBuffFlag   = false;//バフフラグ
     private bool CircleFlag = false;      //バフサークルフラグ
+
+    public static int P1HissatsuCount = 0;//必殺カウント
+    public static int P2HissatsuCount = 0;//必殺カウント
+    private int HissatuDamage = 60;
 
     public static int DebuffTime = 0;       //効果時間
     public static int BuffTime = 0;         //効果時間
@@ -78,7 +82,7 @@ public class StatusManagement : MonoBehaviour
         //バフのリセット
         if (BuffTime == 0 && CircleFlag)
         {
-            FindObjectOfType<BuffCircle>().Invoke("CircleDelete", 0.7f);
+            FindObjectOfType<BuffCircle>().Invoke("CircleDelete", 0.4f);
             OnBuffFlag = false;
             CircleFlag = false;
         }
@@ -87,13 +91,52 @@ public class StatusManagement : MonoBehaviour
         {
             Mino.fallTime = MainFallTime;
         }
-
-        if(Input.GetKeyDown(KeyCode.C))
+        Debug.Log(P2HissatsuCount);
+        Debug.Log(P1HissatsuCount);
+        if (P1HissatsuCount >= 10)
         {
-            current2Hp -= isDamage;
-            Player2hpBar.fillAmount = (float)current2Hp / (float)Player2MaxHP;
+            StartCoroutine(HissattuAttack());
+        }
+        if (P2HissatsuCount >= 10)
+        {
+            StartCoroutine(HissattuAttack());
         }
 
+
+    }
+    IEnumerator HissattuAttack()
+    {
+        if (Mino.P1_Turn)
+        {
+            P1HissatsuCount = 0;
+            FindObjectOfType<CharacterAnimation>().Player1AttackAnime();
+        }
+           
+        if (Mino.P2_Turn)
+        {
+            P2HissatsuCount = 0;
+            FindObjectOfType<CharacterAnimation>().Player2AttackAnime();
+        }
+        
+        yield return new WaitForSeconds(0.7f);//遅延
+        if (Mino.P1_Turn)
+        {
+            FindObjectOfType<CharacterAnimation>().Player2DamageAnime();
+            //Hpを減らす
+            yield return new WaitForSeconds(0.5f);//遅延
+            current2Hp -= HissatuDamage;
+            Player2hpBar.fillAmount = (float)current2Hp / (float)Player2MaxHP;
+        }
+        if (Mino.P2_Turn)
+        {
+            FindObjectOfType<CharacterAnimation>().Player1DamageAnime();
+            //Hpを減らす
+            yield return new WaitForSeconds(0.5f);//遅延
+            current1Hp -= HissatuDamage;
+            Player1hpBar.fillAmount = (float)current1Hp / (float)Player1MaxHP;
+        }
+
+        yield break;
     }
 
     //デバフの継続時間
@@ -105,6 +148,7 @@ public class StatusManagement : MonoBehaviour
     public void BuffCount()
     {
         BuffTime--;
+        Debug.Log(DebuffTime);
     }
 
     public void AttackHandle()
@@ -235,6 +279,13 @@ public class StatusManagement : MonoBehaviour
 
     public void NormalHandle()
     {
-
+        if(Mino.P1_Turn)
+        {
+            P1HissatsuCount++;
+        }
+        if (Mino.P2_Turn)
+        {
+            P2HissatsuCount++;
+        }        
     }
 }

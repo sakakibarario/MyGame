@@ -27,12 +27,12 @@ public class RandomObj : MonoBehaviour
     {
         SpriteRenderer = GetComponent<SpriteRenderer>();
 
-        int rnd = Random.Range(0, 11);// ランダムな整数を生成
+        int rnd = Random.Range(0, 4);// ランダムな整数を生成
 
         if (rnd >= 0 && rnd <= 3)
         {
-            //ブルーノーマル
-            SpriteRenderer.color = new Color32(40, 0, 255, 255);
+            //グレーノーマル
+            SpriteRenderer.color = new Color32(100, 100, 100, 255);
             Effects = (int)effect.NORMAL;
         }
         if(rnd >= 4 && rnd <= 7)

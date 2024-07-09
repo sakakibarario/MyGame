@@ -24,6 +24,10 @@ public class CharacterAnimation : MonoBehaviour
     //勝利フラグ
     private bool WinFlag = false;
 
+    //カラー変更フラグ
+    private bool ChangeFlag1 = false;
+    private bool ChangeFlag2 = false;
+
     private readonly string[] AnimationName = new string[]
     {
             "attack",
@@ -51,18 +55,48 @@ public class CharacterAnimation : MonoBehaviour
         {
             if (Mino.P1_Turn)
             {
-                Sr1.color = new Color32(255, 255, 255, 140);
+                ChangeFlag1 = false;
+                Invoke("Transparent1", 1.0f);
+               
             }
             else
-                Sr1.color = new Color32(255, 255, 255, 255);
+                Invoke("ChangeColor1", 1.0f);
+        
             if (Mino.P2_Turn)
             {
-                Sr2.color = new Color32(255, 255, 255, 140);
+                ChangeFlag2 = false;
+                Invoke("Transparent2", 1.0f);
+               
             }
             else
+                Invoke("ChangeColor2", 1.0f);
+            
+
+            if (ChangeFlag1)
+                Sr1.color = new Color32(255, 255, 255, 255);
+            if(ChangeFlag2)
                 Sr2.color = new Color32(255, 255, 255, 255);
         }
     }
+
+    private void Transparent1()
+    {
+        Sr1.color = new Color32(255, 255, 255, 140);
+    }
+    private void Transparent2()
+    {
+        Sr2.color = new Color32(255, 255, 255, 140);
+    }
+    private void ChangeColor1()
+    {
+        ChangeFlag1 = true;
+    }
+    private void ChangeColor2()
+    {
+        ChangeFlag2 = true;
+    }
+
+
 
     //ダメージアニメ
     public void Player1DamageAnime()
