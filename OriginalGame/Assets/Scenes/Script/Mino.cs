@@ -226,7 +226,21 @@ public class Mino : MonoBehaviour
             if (roundY >= height - 1)
             {
                 // GameOverメソッドを呼び出す
-                FindObjectOfType<GameManagement>().GameOver();
+                Debug.Log("gameover");
+                //HPどちら方０になったら
+                if (P1_Turn)
+                {
+                    Debug.Log("1win");
+                    FindObjectOfType<CharacterAnimation>().Player1WinAnime();
+                    GameManager.GState = "Title";
+                }
+                if (P2_Turn)
+                {
+                    Debug.Log("2win");
+                    FindObjectOfType<CharacterAnimation>().Player2WinAnime();
+                    GameManager.GState = "Title";
+                }
+               // FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Title);
             }
         }
     }

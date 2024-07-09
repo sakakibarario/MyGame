@@ -120,7 +120,7 @@ public class CharacterAnimation : MonoBehaviour
     }
     public void Player2DebuffAnime()
     {
-        m_iAnimationIndex1 = Magic;
+        m_iAnimationIndex2 = Magic;
         PlayAnime2();
     }
 
@@ -134,7 +134,7 @@ public class CharacterAnimation : MonoBehaviour
     public void Player2WinAnime()
     {
         WinFlag = true;
-        m_iAnimationIndex1 = Win;
+        m_iAnimationIndex2 = Win;
         PlayAnime2();
     }
 
