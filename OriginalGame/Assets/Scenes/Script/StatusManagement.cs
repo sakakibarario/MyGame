@@ -7,6 +7,10 @@ using UnityEngine.UI;
 
 public class StatusManagement : MonoBehaviour
 {
+    //必殺テキスト
+    public Text P1Hissatsu;
+    public Text P2Hissatsu;
+
     //バフグラフィック
     public GameObject PlayerBuffCircle;
     GameObject Player1;
@@ -36,8 +40,10 @@ public class StatusManagement : MonoBehaviour
     private static bool OnBuffFlag   = false;//バフフラグ
     private bool CircleFlag = false;      //バフサークルフラグ
 
-    public static int P1HissatsuCount = 0;//必殺カウント
-    public static int P2HissatsuCount = 0;//必殺カウント
+    //必殺関係
+    private int MAXHissatu = 10;//最大
+    private static int P1HissatsuCount = 0;//必殺カウント
+    private static int P2HissatsuCount = 0;//必殺カウント
     private int HissatuDamage = 60;
 
     public static int DebuffTime = 0;       //効果時間
@@ -91,13 +97,17 @@ public class StatusManagement : MonoBehaviour
         {
             Mino.fallTime = MainFallTime;
         }
-        Debug.Log(P2HissatsuCount);
-        Debug.Log(P1HissatsuCount);
-        if (P1HissatsuCount >= 10)
+
+        //必殺カウント描画
+        P1Hissatsu.text = "Special:" + P1HissatsuCount + "/" + MAXHissatu;
+        P2Hissatsu.text = "Special:" + P2HissatsuCount + "/" + MAXHissatu;
+
+        //必殺処理
+        if (P1HissatsuCount >= MAXHissatu)
         {
             StartCoroutine(HissattuAttack());
         }
-        if (P2HissatsuCount >= 10)
+        if (P2HissatsuCount >= MAXHissatu)
         {
             StartCoroutine(HissattuAttack());
         }
