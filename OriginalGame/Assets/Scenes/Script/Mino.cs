@@ -8,6 +8,8 @@ public class Mino : MonoBehaviour
     // minoが落ちるタイム
     public static float fallTime = 0.6f;
 
+    private bool HoldFlag = false;//ホールド用
+
     // ステージの大きさ
     private static int width = 10;
     private static int height = 20;
@@ -25,6 +27,7 @@ public class Mino : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        HoldFlag = true;
         //効果時間
         if (StatusManagement.DebuffTime > 0)
             FindObjectOfType<StatusManagement>().DebuffCount();
@@ -101,6 +104,12 @@ public class Mino : MonoBehaviour
 
 
         }
+
+        else if(Input.GetKeyDown(KeyCode.H) && HoldFlag)
+        {
+            HoldFlag = false;
+            FindObjectOfType<SpawnMino>().HoldMino();
+        }
     }
 
     //プレイヤー２
@@ -155,6 +164,12 @@ public class Mino : MonoBehaviour
             {
                 transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), -90);
             }
+        }
+
+        else if (Input.GetKeyDown(KeyCode.H) && HoldFlag)
+        {
+            HoldFlag = false;
+            FindObjectOfType<SpawnMino>().HoldMino();
         }
     }
 
@@ -227,19 +242,21 @@ public class Mino : MonoBehaviour
             if (roundY >= height - 1)
             {
                 // GameOverメソッドを呼び出す
+                GameManager.GState = "Title";
                 Debug.Log("gameover");
                 //HPどちら方０になったら
-                if (P2_Turn)
+                if (P1_Turn)
                 {
                     Debug.Log("1win");
+                   
                     FindObjectOfType<CharacterAnimation>().Player1WinAnime();
-                    GameManager.GState = "Title";
+                   
                 }
-                if (P1_Turn)
+                if (P2_Turn)
                 {
                     Debug.Log("2win");
                     FindObjectOfType<CharacterAnimation>().Player2WinAnime();
-                    GameManager.GState = "Title";
+                   
                 }
                // FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Title);
             }

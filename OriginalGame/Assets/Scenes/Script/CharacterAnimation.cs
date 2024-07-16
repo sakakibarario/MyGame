@@ -81,11 +81,13 @@ public class CharacterAnimation : MonoBehaviour
 
     private void Transparent1()
     {
-        Sr1.color = new Color32(255, 255, 255, 140);
+        if (GameManager.GState == "Playing")
+            Sr1.color = new Color32(255, 255, 255, 140);
     }
     private void Transparent2()
     {
-        Sr2.color = new Color32(255, 255, 255, 140);
+        if (GameManager.GState == "Playing")
+            Sr2.color = new Color32(255, 255, 255, 140);
     }
     private void ChangeColor1()
     {

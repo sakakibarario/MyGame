@@ -5,6 +5,9 @@ using UnityEngine;
 public class SpawnMino : MonoBehaviour
 {
     public GameObject[] Minos;
+
+    public static GameObject clonedObject;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +17,14 @@ public class SpawnMino : MonoBehaviour
     public void NewMino()
     {
         //MinoÇÃê∂ê¨
-        Instantiate(Minos[Random.Range(0, Minos.Length)], new Vector2(transform.position.x, transform.position.y + 1.0f), Quaternion.identity);
+        clonedObject = Instantiate(Minos[Random.Range(0, Minos.Length)], new Vector2(transform.position.x, transform.position.y + 2.0f), Quaternion.identity);
+        
+    }
+
+    public void HoldMino()
+    {
+        Mino clonedMino = clonedObject.GetComponent<Mino>();
+        clonedMino.enabled = false;
+        clonedObject.transform.position = new Vector2(transform.position.x, transform.position.y + 2.0f);
     }
 }

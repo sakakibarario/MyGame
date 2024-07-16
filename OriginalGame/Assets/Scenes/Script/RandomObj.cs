@@ -16,7 +16,7 @@ public class RandomObj : MonoBehaviour
         NORMAL
     }
 
-    private int Effects = 0;
+    public int Effects = 0;
 
 
     public UnityEvent OnDestroyed = new UnityEvent();
