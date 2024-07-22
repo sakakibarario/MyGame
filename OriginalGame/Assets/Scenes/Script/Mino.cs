@@ -8,7 +8,7 @@ public class Mino : MonoBehaviour
     // minoが落ちるタイム
     public static float fallTime = 0.6f;
 
-    private bool HoldFlag = false;//ホールド用
+    private static bool HoldFlag = true;//ホールド用
 
     // ステージの大きさ
     private static int width = 10;
@@ -27,7 +27,6 @@ public class Mino : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        HoldFlag = true;
         //効果時間
         if (StatusManagement.DebuffTime > 0)
             FindObjectOfType<StatusManagement>().DebuffCount();
@@ -85,8 +84,13 @@ public class Mino : MonoBehaviour
                 CheckLines();
                 this.enabled = false;
 
+                //ターンの入れ替え
                 P2_Turn = true;
                 P1_Turn = false;
+
+                //ホールドフラグをあげる
+                HoldFlag = true;
+                //新しいMinoの生成
                 FindObjectOfType<SpawnMino>().Invoke("NewMino", 1.0f);
             }
             previousTime = Time.time;
@@ -148,8 +152,13 @@ public class Mino : MonoBehaviour
                 AddToGrid();
                 CheckLines();
                 this.enabled = false;
+
+                //ターンの入れ替え
                 P1_Turn = true;
                 P2_Turn = false;
+                //ホールドフラグをあげる
+                HoldFlag = true;
+                //新しいMinoの生成
                 FindObjectOfType<SpawnMino>().Invoke("NewMino", 1.0f);
             }
             previousTime = Time.time;

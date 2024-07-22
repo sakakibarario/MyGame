@@ -271,10 +271,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      chara00101_main_1: 958433493656290415
       chara00101_main_0: 6195653668415898635
-      chara00101_main_3: -2769942105307238504
+      chara00101_main_1: 958433493656290415
       chara00101_main_2: 8744982733841185961
+      chara00101_main_3: -2769942105307238504
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
