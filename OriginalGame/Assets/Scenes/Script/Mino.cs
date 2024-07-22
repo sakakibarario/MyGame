@@ -12,7 +12,7 @@ public class Mino : MonoBehaviour
 
     // ステージの大きさ
     private static int width = 10;
-    private static int height = 20;
+    private static int height = 21;
 
     //順番フラグ
     //private bool Enemy_Turn  = false;

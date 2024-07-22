@@ -231,7 +231,7 @@ public class StatusManagement : MonoBehaviour
                 FindObjectOfType<CharacterAnimation>().Player1BuffAnime();
                 yield return new WaitForSeconds(1.5f);//íxâÑ
                 //ÉoÉtîwåi
-                Instantiate(PlayerBuffCircle, new Vector2(Player1.transform.position.x - 0.3f, Player1.transform.position.y), Quaternion.identity);
+                Instantiate(PlayerBuffCircle, new Vector2(Player1.transform.position.x - 0.3f, Player1.transform.position.y - 0.5f), Quaternion.identity);//Ç∏ÇÍÇƒÇÈï™Ç∏ÇÁÇ∑
             }
             //P2
             if (Mino.P2_Turn)
@@ -241,7 +241,7 @@ public class StatusManagement : MonoBehaviour
                 FindObjectOfType<CharacterAnimation>().Player2BuffAnime();
                 yield return new WaitForSeconds(1.5f);//íxâÑ
              Å@ //ÉoÉtîwåi
-                Instantiate(PlayerBuffCircle, Player2.transform.position, Quaternion.identity);
+                Instantiate(PlayerBuffCircle, new Vector2(Player2.transform.position.x, Player2.transform.position.y - 0.5f), Quaternion.identity);//Ç∏ÇÍÇƒÇÈï™Ç∏ÇÁÇ∑
             }
             OnBuffFlag = true;
         }
