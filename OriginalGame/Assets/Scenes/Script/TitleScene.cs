@@ -5,11 +5,14 @@ using UnityEngine.UI;
 
 public class TitleScene : MonoBehaviour
 {
-    public static bool Startdelay = false;
+    //オーディオ関連
+    public AudioClip Sound1;
+    AudioSource AudioSource;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        AudioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -20,9 +23,11 @@ public class TitleScene : MonoBehaviour
 
     public void OnClick()
     {
-        Startdelay = true;
-        int rnd = Random.Range(0, 2);
+        //オーディオ再生
+        AudioSource.PlayOneShot(Sound1, 1.0f);
+
         //ランダムで順番決め
+        int rnd = Random.Range(0, 2);     
         switch (rnd)
         {
             case 0:

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SoundMino : MonoBehaviour
 {
+    //オーディオ関連
     public AudioClip Sound1;
     AudioSource AudioSource;
 
