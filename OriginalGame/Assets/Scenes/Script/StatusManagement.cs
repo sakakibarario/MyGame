@@ -40,7 +40,7 @@ public class StatusManagement : MonoBehaviour
     private bool CircleFlag = false;      //バフサークルフラグ
 
     //必殺関係
-    private int MAXHissatu = 10;//最大
+    private int MAXHissatu = 3;//最大
     private static int P1HissatsuCount = 0;//必殺カウント
     private static int P2HissatsuCount = 0;//必殺カウント
     private int HissatuDamage = 60;
@@ -115,18 +115,23 @@ public class StatusManagement : MonoBehaviour
     }
     IEnumerator HissattuAttack()
     {
-        if (Mino.P1_Turn || Mino.PvE)
+        if (Mino.P1_Turn )
         {
             P1HissatsuCount = 0;
             FindObjectOfType<CharacterAnimation>().Player1AttackAnime();
         }
            
-        if (Mino.P2_Turn)
+        if (Mino.P2_Turn )
         {
             P2HissatsuCount = 0;
             FindObjectOfType<CharacterAnimation>().Player2AttackAnime();
         }
 
+        if(Mino.PvE)
+        {
+            P2HissatsuCount = 0;
+            FindObjectOfType<CharacterAnimation>().Player1AttackAnime();
+        }
             yield return new WaitForSeconds(0.7f);//遅延
         if (Mino.P1_Turn || Mino.PvE)
         {
@@ -298,11 +303,11 @@ public class StatusManagement : MonoBehaviour
 
     public void NormalHandle()
     {
-        if(Mino.P1_Turn || Mino.PvE)
+        if(Mino.P1_Turn )
         {
             P1HissatsuCount++;
         }
-        if (Mino.P2_Turn)
+        if (Mino.P2_Turn || Mino.PvE)
         {
             P2HissatsuCount++;
         }        
