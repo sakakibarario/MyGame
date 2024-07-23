@@ -84,6 +84,9 @@ public class Mino : MonoBehaviour
                 CheckLines();
                 this.enabled = false;
 
+                //サウンド関数呼び出し
+                FindObjectOfType<SoundMino>().MinoSound();
+
                 //ターンの入れ替え
                 P2_Turn = true;
                 P1_Turn = false;
@@ -152,6 +155,9 @@ public class Mino : MonoBehaviour
                 AddToGrid();
                 CheckLines();
                 this.enabled = false;
+
+                //サウンド関数呼び出し
+                FindObjectOfType<SoundMino>().MinoSound();
 
                 //ターンの入れ替え
                 P1_Turn = true;
