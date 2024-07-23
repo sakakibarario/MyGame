@@ -15,8 +15,8 @@ public class Mino : MonoBehaviour
     private static int height = 21;
 
     //順番フラグ
-    //private bool Enemy_Turn  = false;
-    public static bool P1_Turn = true;
+    public static bool PvE     = true;
+    public static bool P1_Turn = false;
     public static bool P2_Turn = false;
 
     // mino回転
@@ -43,6 +43,10 @@ public class Mino : MonoBehaviour
                 MinoMovememt1();
             if (P2_Turn)//プレイヤー２呼び出す
                 MinoMovememt2();
+        }
+        if (GameManager.GState == "PvE")
+        {
+            MinoMovememt2();
         }
     }
 
@@ -160,8 +164,11 @@ public class Mino : MonoBehaviour
                 FindObjectOfType<SoundMino>().MinoSound();
 
                 //ターンの入れ替え
-                P1_Turn = true;
-                P2_Turn = false;
+                if (!PvE)
+                {
+                    P1_Turn = true;
+                    P2_Turn = false;
+                }
                 //ホールドフラグをあげる
                 HoldFlag = true;
                 //新しいMinoの生成

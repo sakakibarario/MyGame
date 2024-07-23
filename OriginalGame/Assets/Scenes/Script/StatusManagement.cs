@@ -25,7 +25,6 @@ public class StatusManagement : MonoBehaviour
     //ç≈ëÂHP
     private int Player1MaxHP = 100;
     private int Player2MaxHP = 100;
-    //private int EnemyMaxHP = 100;
     //åªç›ÇÃHP
     private int current1Hp;
     private int current2Hp;
@@ -66,7 +65,7 @@ public class StatusManagement : MonoBehaviour
         //HpÇÃãLâØ
         current1Hp = Player1MaxHP;
         current2Hp = Player2MaxHP;
-        //currentEnemyHp = EnemyMaxHP;
+        
 
         Player1 = GameObject.FindWithTag("Player");
         Player2 = GameObject.FindWithTag("Player2");
@@ -116,7 +115,7 @@ public class StatusManagement : MonoBehaviour
     }
     IEnumerator HissattuAttack()
     {
-        if (Mino.P1_Turn)
+        if (Mino.P1_Turn || Mino.PvE)
         {
             P1HissatsuCount = 0;
             FindObjectOfType<CharacterAnimation>().Player1AttackAnime();
@@ -127,9 +126,9 @@ public class StatusManagement : MonoBehaviour
             P2HissatsuCount = 0;
             FindObjectOfType<CharacterAnimation>().Player2AttackAnime();
         }
-        
-        yield return new WaitForSeconds(0.7f);//íxâÑ
-        if (Mino.P1_Turn)
+
+            yield return new WaitForSeconds(0.7f);//íxâÑ
+        if (Mino.P1_Turn || Mino.PvE)
         {
             FindObjectOfType<CharacterAnimation>().Player2DamageAnime();
             //HpÇå∏ÇÁÇ∑
@@ -167,7 +166,7 @@ public class StatusManagement : MonoBehaviour
     }
     IEnumerator AttackStart()
     {
-        if (Mino.P1_Turn)
+        if (Mino.P1_Turn || Mino.PvE)
             FindObjectOfType<CharacterAnimation>().Player1AttackAnime();
         if (Mino.P2_Turn)
             FindObjectOfType<CharacterAnimation>().Player2AttackAnime();
@@ -176,7 +175,7 @@ public class StatusManagement : MonoBehaviour
         if (!OnBuffFlag)
         {
             yield return new WaitForSeconds(0.7f);//íxâÑ
-            if (Mino.P1_Turn)
+            if (Mino.P1_Turn || Mino.PvE)
             {
                 FindObjectOfType<CharacterAnimation>().Player2DamageAnime();
                 //HpÇå∏ÇÁÇ∑
@@ -202,13 +201,23 @@ public class StatusManagement : MonoBehaviour
         if (Mino.P1_Turn)
         {
             FindObjectOfType<CharacterAnimation>().Player1DebuffAnime();
+            Mino.fallTime = isDebuff;
+            DebuffTime = EffectCount;
         }
         if (Mino.P2_Turn)
         {
             FindObjectOfType<CharacterAnimation>().Player2DebuffAnime();
+            Mino.fallTime = isDebuff;
+            DebuffTime = EffectCount;
         }
-        Mino.fallTime = isDebuff;
-        DebuffTime = EffectCount;
+        if(Mino.PvE)
+        {
+            FindObjectOfType<CharacterAnimation>().Player1DebuffAnime();
+            //ìGÇÃçUåÇÇíxÇÁÇπÇÈ
+
+        }
+        
+       
     }
 
     public void BuffHandle()
@@ -224,7 +233,7 @@ public class StatusManagement : MonoBehaviour
         if (!CircleFlag)//CircleÇê∂ê¨ÇµÇƒÇ¢Ç»Ç¢Ç»ÇÁ
         {
             //P1
-            if (Mino.P1_Turn)
+            if (Mino.P1_Turn || Mino.PvE)
             {
                 CircleFlag = true;
                 //ÉAÉjÉÅÅ[ÉVÉáÉìçƒê∂
@@ -260,7 +269,7 @@ public class StatusManagement : MonoBehaviour
         if (current1Hp < Player1MaxHP)
         {
             //P1
-            if (Mino.P1_Turn)
+            if (Mino.P1_Turn || Mino.PvE)
             {
                 //ÉAÉjÉÅÅ[ÉVÉáÉìçƒê∂
                 FindObjectOfType<CharacterAnimation>().Player1RecoveryAnime();
@@ -289,7 +298,7 @@ public class StatusManagement : MonoBehaviour
 
     public void NormalHandle()
     {
-        if(Mino.P1_Turn)
+        if(Mino.P1_Turn || Mino.PvE)
         {
             P1HissatsuCount++;
         }

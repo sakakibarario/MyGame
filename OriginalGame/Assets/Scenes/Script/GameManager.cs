@@ -9,17 +9,19 @@ public class GameManager : MonoBehaviour
     //ゲームステート
     public enum GameState
     {
-        Playing,
+        PVP,
         Result,
         Pose,
         Title,
-        Demo
+        Demo,
+        PVE
     }
     //フェード用
     public string sceneNameR;
     public string sceneNameG;
     public string sceneNameT;
     public string sceneNameD;
+    public string sceneNameE;
 
     public Color loadToColor = Color.white;
     public float fadeSpeed;
@@ -28,7 +30,7 @@ public class GameManager : MonoBehaviour
     GameState currentState = GameState.Title;
 
     //public static string GState = "Title";//ゲームの状態
-    public static string GState = "Playing";//ゲームの状態
+    public static string GState = "PvE";//ゲームの状態
 
     // Start is called before the first frame update
     void Start()
@@ -49,8 +51,8 @@ public class GameManager : MonoBehaviour
         currentState = state;
         switch (state)
         {
-            case GameState.Playing:
-                GameStart();
+            case GameState.PVP:
+                GamePVP();
                 break;
             case GameState.Result:
                 GameResult();
@@ -63,6 +65,9 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.Demo:
                 GameDemo();
+                break;
+            case GameState.PVE:
+                GamePVE();
                 break;
         }
 
@@ -89,10 +94,17 @@ public class GameManager : MonoBehaviour
     }
 
     // ゲームスタート処理
-    void GameStart()
+    void GamePVP()
     {
         GState = "Playing";
         Initiate.Fade(sceneNameG, loadToColor, fadeSpeed);
+        Debug.Log("playing");
+    }
+    // ゲームスタート処理
+    void GamePVE()
+    {
+        GState = "PvE";
+        Initiate.Fade(sceneNameE, loadToColor, fadeSpeed);
         Debug.Log("playing");
     }
 

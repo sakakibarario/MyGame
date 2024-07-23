@@ -43,7 +43,7 @@ public class SpawnMino : MonoBehaviour
 
     public void HoldMino()
     {
-        if(Mino.P1_Turn)
+        if(Mino.P1_Turn )
         {
             //既にホールドされてるか
             if(P1HoldFlag)
@@ -72,7 +72,7 @@ public class SpawnMino : MonoBehaviour
             //ホールド
             P1HoldFlag = true;
         }
-        if(Mino.P2_Turn)
+        if(Mino.P2_Turn || Mino.PvE)
         {
             //既にホールドされてるか
             if (P2HoldFlag)

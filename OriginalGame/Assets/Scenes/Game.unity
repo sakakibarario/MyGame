@@ -140,7 +140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5784895257406628654, guid: 17cbc357bf20de74485f5f5d54b77b72, type: 3}
       propertyPath: m_Name
-      value: HealthBar 1
+      value: HealthBar 2
       objectReference: {fileID: 0}
     - target: {fileID: 5784895257406628655, guid: 17cbc357bf20de74485f5f5d54b77b72, type: 3}
       propertyPath: m_Pivot.x
@@ -152,7 +152,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5784895257406628655, guid: 17cbc357bf20de74485f5f5d54b77b72, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5784895257406628655, guid: 17cbc357bf20de74485f5f5d54b77b72, type: 3}
       propertyPath: m_AnchorMax.x
@@ -831,8 +831,8 @@ Transform:
   m_LocalScale: {x: 79.166664, y: 79.166664, z: 79.166664}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 63520969}
   - {fileID: 917595907}
+  - {fileID: 63520969}
   m_Father: {fileID: 550201077}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -933,7 +933,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5784895257406628654, guid: 17cbc357bf20de74485f5f5d54b77b72, type: 3}
       propertyPath: m_Name
-      value: HealthBar2
+      value: HealthBar1
       objectReference: {fileID: 0}
     - target: {fileID: 5784895257406628655, guid: 17cbc357bf20de74485f5f5d54b77b72, type: 3}
       propertyPath: m_Pivot.x
@@ -945,7 +945,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5784895257406628655, guid: 17cbc357bf20de74485f5f5d54b77b72, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5784895257406628655, guid: 17cbc357bf20de74485f5f5d54b77b72, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1441,6 +1441,7 @@ MonoBehaviour:
   sceneNameG: Title
   sceneNameT: Title
   sceneNameD: Title
+  sceneNameE: 
   loadToColor: {r: 0, g: 0, b: 0, a: 1}
   fadeSpeed: 3
 --- !u!82 &1290364505
@@ -1685,7 +1686,7 @@ GameObject:
   - component: {fileID: 1312175806}
   - component: {fileID: 1312175805}
   m_Layer: 0
-  m_Name: player2
+  m_Name: player1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2351,7 +2352,7 @@ GameObject:
   - component: {fileID: 1936244841}
   - component: {fileID: 1936244840}
   m_Layer: 0
-  m_Name: player1
+  m_Name: player2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

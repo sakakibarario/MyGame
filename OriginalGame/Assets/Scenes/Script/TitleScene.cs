@@ -21,7 +21,7 @@ public class TitleScene : MonoBehaviour
         
     }
 
-    public void OnClick()
+    public void OnClick1()
     {
         //オーディオ再生
         AudioSource.PlayOneShot(Sound1, 1.0f);
@@ -43,6 +43,16 @@ public class TitleScene : MonoBehaviour
                 break;
         }
         // ゲームスタート処理を呼ぶ
-        FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Playing);
+        FindObjectOfType<GameManager>().dispatch(GameManager.GameState.PVP);
+    }
+    public void OnClick2()
+    {
+        //オーディオ再生
+        AudioSource.PlayOneShot(Sound1, 1.0f);
+
+        Mino.PvE = true;
+   
+        // ゲームスタート処理を呼ぶ
+        FindObjectOfType<GameManager>().dispatch(GameManager.GameState.PVE);
     }
 }

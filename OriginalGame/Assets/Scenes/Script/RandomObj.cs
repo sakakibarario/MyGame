@@ -71,7 +71,7 @@ public class RandomObj : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (GameManager.GState == "Playing")
+        if (GameManager.GState == "Playing" || GameManager.GState == "PvE")
         {
             //Debug.Log("Destroyed");
             switch (Effects)
