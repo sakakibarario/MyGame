@@ -123,7 +123,7 @@ public class Mino : MonoBehaviour
 
         }
 
-        else if(Input.GetKeyDown(KeyCode.H) && HoldFlag)
+        else if(Input.GetKeyDown(KeyCode.RightShift) && HoldFlag)
         {
             HoldFlag = false;
             FindObjectOfType<SpawnMino>().HoldMino();

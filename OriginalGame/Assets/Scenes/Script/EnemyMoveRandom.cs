@@ -29,7 +29,7 @@ public class EnemyMoveRandom : MonoBehaviour
     public void EnemyMove()
     {
         Mino.EnemyMoveCount = 3;
-        int rnd = Random.Range(2, 3);
+        int rnd = Random.Range(0, 3);
         Mino.PvE = false;
         EnemyMoveFlag = true;
         switch (rnd)

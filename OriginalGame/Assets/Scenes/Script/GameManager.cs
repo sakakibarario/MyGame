@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour
     //ƒŠƒUƒ‹ƒgˆ—
     void GameResult()
     {
-        GState = "GameResult";
+        GState = "Result";
 
         Debug.Log("Result");
     }
