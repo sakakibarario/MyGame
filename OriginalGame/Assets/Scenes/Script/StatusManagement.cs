@@ -173,9 +173,8 @@ public class StatusManagement : MonoBehaviour
     {
         if (Mino.P1_Turn || Mino.PvE)
             FindObjectOfType<CharacterAnimation>().Player1AttackAnime();
-        if (Mino.P2_Turn)
+        if (Mino.P2_Turn || EnemyMoveRandom.EnemyMoveFlag)
             FindObjectOfType<CharacterAnimation>().Player2AttackAnime();
-      
 
         if (!OnBuffFlag)
         {
@@ -188,7 +187,7 @@ public class StatusManagement : MonoBehaviour
                 current2Hp -= isDamage;
                 Player2hpBar.fillAmount = (float)current2Hp / (float)Player2MaxHP;
             }
-            if (Mino.P2_Turn)
+            if (Mino.P2_Turn || EnemyMoveRandom.EnemyMoveFlag)
             {
                 FindObjectOfType<CharacterAnimation>().Player1DamageAnime();
                 //Hp‚ğŒ¸‚ç‚·
@@ -198,6 +197,9 @@ public class StatusManagement : MonoBehaviour
             }
         }
 
+        if(GameManager.GState == "PvE" && EnemyMoveRandom.EnemyMoveFlag)
+            EnemyMoveEnd();//“G‚Ì“®‚«‚ğ‚Æ‚ß‚é        
+        
         yield break;
     }
 
@@ -209,7 +211,7 @@ public class StatusManagement : MonoBehaviour
             Mino.fallTime = isDebuff;
             DebuffTime = EffectCount;
         }
-        if (Mino.P2_Turn)
+        if (Mino.P2_Turn || EnemyMoveRandom.EnemyMoveFlag)
         {
             FindObjectOfType<CharacterAnimation>().Player2DebuffAnime();
             Mino.fallTime = isDebuff;
@@ -219,10 +221,10 @@ public class StatusManagement : MonoBehaviour
         {
             FindObjectOfType<CharacterAnimation>().Player1DebuffAnime();
             //“G‚ÌUŒ‚‚ğ’x‚ç‚¹‚é
-
+            Mino.EnemyMoveCount++;
         }
-        
-       
+        if (GameManager.GState == "PvE" && EnemyMoveRandom.EnemyMoveFlag)
+            EnemyMoveEnd();//“G‚Ì“®‚«‚ğ‚Æ‚ß‚é     
     }
 
     public void BuffHandle()
@@ -288,7 +290,7 @@ public class StatusManagement : MonoBehaviour
         if (current2Hp < Player2MaxHP)
         {
             //P2
-            if (Mino.P2_Turn)
+            if (Mino.P2_Turn || EnemyMoveRandom.EnemyMoveFlag)
             {
                 //ƒAƒjƒ[ƒVƒ‡ƒ“Ä¶
                 FindObjectOfType<CharacterAnimation>().Player2RecoveryAnime();
@@ -298,6 +300,15 @@ public class StatusManagement : MonoBehaviour
                 Player2hpBar.fillAmount = (float)current2Hp / (float)Player2MaxHP;//HPƒo[‚É”»’è
             }
         }
+        else if (EnemyMoveRandom.EnemyMoveFlag)
+        {
+            Debug.Log("‚à‚¤ˆê“x");
+            FindObjectOfType<EnemyMoveRandom>().EnemyMove();
+            yield break;
+        }
+
+        if (GameManager.GState == "PvE" && EnemyMoveRandom.EnemyMoveFlag)
+            EnemyMoveEnd();//“G‚Ì“®‚«‚ğ‚Æ‚ß‚é     
         yield break;
     }
 
@@ -311,5 +322,11 @@ public class StatusManagement : MonoBehaviour
         {
             P2HissatsuCount++;
         }        
+    }
+
+    private void EnemyMoveEnd()
+    {
+        Mino.PvE = true;//~‚ß‚Ä‚¢‚½ƒtƒ‰ƒO‚ğ‚ ‚°‚é
+        EnemyMoveRandom.EnemyMoveFlag = false;//“G‚ÌUŒ‚I—¹
     }
 }

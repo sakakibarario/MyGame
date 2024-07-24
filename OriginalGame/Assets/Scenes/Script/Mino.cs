@@ -19,6 +19,9 @@ public class Mino : MonoBehaviour
     public static bool P1_Turn = false;
     public static bool P2_Turn = false;
 
+    //敵が動き出す時間
+    public static int EnemyMoveCount = 3;
+
     // mino回転
     public Vector3 rotationPoint;
 
@@ -37,6 +40,7 @@ public class Mino : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (GameManager.GState == "Playing")
         {
             if (P1_Turn)//プレイヤー１呼び出す
@@ -46,7 +50,10 @@ public class Mino : MonoBehaviour
         }
         if (GameManager.GState == "PvE")
         {
-            MinoMovememt2();
+            if (PvE)
+                MinoMovememt2();
+            if (Input.GetKeyDown(KeyCode.P))
+                FindObjectOfType<EnemyMoveRandom>().EnemyMove();
         }
     }
 
@@ -168,6 +175,12 @@ public class Mino : MonoBehaviour
                 {
                     P1_Turn = true;
                     P2_Turn = false;
+                }
+                else
+                {
+                    EnemyMoveCount--;
+                    if (EnemyMoveCount == 0)
+                        FindObjectOfType<EnemyMoveRandom>().EnemyMove();
                 }
                 //ホールドフラグをあげる
                 HoldFlag = true;
