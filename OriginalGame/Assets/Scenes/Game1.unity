@@ -698,7 +698,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 624, y: -120}
+  m_AnchoredPosition: {x: 664, y: -120}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &474872528
@@ -734,7 +734,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'special:'
+  m_Text: 'MoveCount:'
 --- !u!222 &474872529
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1925,7 +1925,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   P1Hissatsu: {fileID: 1291467714}
-  P2Hissatsu: {fileID: 1291467714}
+  P2Hissatsu: {fileID: 474872528}
   PlayerBuffCircle: {fileID: 2868777840830179787, guid: e0fc52e3e40132e40ac5ad2e9e20a5bf, type: 3}
   Player1hpBar: {fileID: 1912368029}
   Player2hpBar: {fileID: 862220557}
@@ -1947,7 +1947,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   P1Hissatsu: {fileID: 1291467714}
-  P2Hissatsu: {fileID: 1291467714}
+  P2Hissatsu: {fileID: 474872528}
   PlayerBuffCircle: {fileID: 2868777840830179787, guid: e0fc52e3e40132e40ac5ad2e9e20a5bf, type: 3}
   Player1hpBar: {fileID: 1912368029}
   Player2hpBar: {fileID: 862220557}

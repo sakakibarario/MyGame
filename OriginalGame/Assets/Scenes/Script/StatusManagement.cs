@@ -40,10 +40,10 @@ public class StatusManagement : MonoBehaviour
     private bool CircleFlag = false;      //ƒoƒtƒT[ƒNƒ‹ƒtƒ‰ƒO
 
     //•KŽEŠÖŒW
-    private int MAXHissatu = 3;//Å‘å
+    private int MAXHissatu = 10;//Å‘å
     private static int P1HissatsuCount = 0;//•KŽEƒJƒEƒ“ƒg
     private static int P2HissatsuCount = 0;//•KŽEƒJƒEƒ“ƒg
-    private int HissatuDamage = 60;
+    private int HissatuDamage = 60;//•KŽEŽž‚Ìƒ_ƒ[ƒW—Í
 
     public static int DebuffTime = 0;       //Œø‰ÊŽžŠÔ
     public static int BuffTime = 0;         //Œø‰ÊŽžŠÔ
@@ -99,7 +99,11 @@ public class StatusManagement : MonoBehaviour
 
         //•KŽEƒJƒEƒ“ƒg•`‰æ
         P1Hissatsu.text = "Special:" + P1HissatsuCount + "/" + MAXHissatu;
-        P2Hissatsu.text = "Special:" + P2HissatsuCount + "/" + MAXHissatu;
+
+        if(GameManager.GState == "PvE")
+            P2Hissatsu.text = "MoveCount:" + Mino.EnemyMoveCount;//“G‚Ì“®‚­‚Ü‚Å‚ÌŽžŠÔ‚ð•`‰æ
+        else
+            P2Hissatsu.text = "Special:" + P2HissatsuCount + "/" + MAXHissatu;
 
         //•KŽEˆ—
         if (P1HissatsuCount >= MAXHissatu)
@@ -115,7 +119,7 @@ public class StatusManagement : MonoBehaviour
     }
     IEnumerator HissattuAttack()
     {
-        if (Mino.P1_Turn )
+        if (Mino.P1_Turn || Mino.PvE)
         {
             P1HissatsuCount = 0;
             FindObjectOfType<CharacterAnimation>().Player1AttackAnime();
@@ -125,12 +129,6 @@ public class StatusManagement : MonoBehaviour
         {
             P2HissatsuCount = 0;
             FindObjectOfType<CharacterAnimation>().Player2AttackAnime();
-        }
-
-        if(Mino.PvE)
-        {
-            P2HissatsuCount = 0;
-            FindObjectOfType<CharacterAnimation>().Player1AttackAnime();
         }
             yield return new WaitForSeconds(0.7f);//’x‰„
         if (Mino.P1_Turn || Mino.PvE)
@@ -307,18 +305,18 @@ public class StatusManagement : MonoBehaviour
             yield break;
         }
 
-        if (GameManager.GState == "PvE" && EnemyMoveRandom.EnemyMoveFlag)
+        if (GameManager.GState == "PvE" &&  EnemyMoveRandom.EnemyMoveFlag)
             EnemyMoveEnd();//“G‚Ì“®‚«‚ð‚Æ‚ß‚é     
         yield break;
     }
 
     public void NormalHandle()
     {
-        if(Mino.P1_Turn )
+        if(Mino.P1_Turn || Mino.PvE)
         {
             P1HissatsuCount++;
         }
-        if (Mino.P2_Turn || Mino.PvE)
+        if (Mino.P2_Turn )
         {
             P2HissatsuCount++;
         }        

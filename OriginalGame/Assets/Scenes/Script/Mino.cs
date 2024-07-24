@@ -15,7 +15,7 @@ public class Mino : MonoBehaviour
     private static int height = 21;
 
     //‡”Ôƒtƒ‰ƒO
-    public static bool PvE     = true;
+    public static bool PvE     = false;
     public static bool P1_Turn = false;
     public static bool P2_Turn = false;
 
