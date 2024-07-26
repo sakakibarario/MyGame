@@ -115,6 +115,16 @@ public class StatusManagement : MonoBehaviour
             StartCoroutine(HissattuAttack());
         }
 
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            current2Hp -= isDamage;
+            Player2hpBar.fillAmount = (float)current2Hp / (float)Player2MaxHP;
+        }
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            current1Hp -= isDamage;
+            Player1hpBar.fillAmount = (float)current1Hp / (float)Player1MaxHP;
+        }
 
     }
     IEnumerator HissattuAttack()

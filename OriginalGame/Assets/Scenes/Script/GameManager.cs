@@ -10,8 +10,6 @@ public class GameManager : MonoBehaviour
     public enum GameState
     {
         PVP,
-        Result,
-        Pose,
         Title,
         Demo,
         PVE
@@ -53,12 +51,6 @@ public class GameManager : MonoBehaviour
         {
             case GameState.PVP:
                 GamePVP();
-                break;
-            case GameState.Result:
-                GameResult();
-                break;
-            case GameState.Pose:
-                GamePose();
                 break;
             case GameState.Title:
                 GameTitle();
@@ -106,14 +98,6 @@ public class GameManager : MonoBehaviour
         GState = "PvE";
         Initiate.Fade(sceneNameE, loadToColor, fadeSpeed);
         Debug.Log("playing");
-    }
-
-    //ÉäÉUÉãÉgèàóù
-    void GameResult()
-    {
-        GState = "Result";
-
-        Debug.Log("Result");
     }
 
 }

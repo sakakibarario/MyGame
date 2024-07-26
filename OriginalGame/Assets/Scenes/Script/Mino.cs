@@ -25,6 +25,11 @@ public class Mino : MonoBehaviour
     // mino回転
     public Vector3 rotationPoint;
 
+    //X軸
+    private float hori = 0;
+    //Y軸
+    private float Verti = 0;
+
     private static Transform[,] grid = new Transform[width, height];
 
     // Start is called before the first frame update
@@ -52,86 +57,12 @@ public class Mino : MonoBehaviour
         {
             if (PvE)
                 MinoMovememt2();
-            if (Input.GetKeyDown(KeyCode.P))
-                FindObjectOfType<EnemyMoveRandom>().EnemyMove();
         }
     }
 
 
     //プレイヤー１
     private void MinoMovememt1()
-    {
-        // 左矢印キーで左に動く
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            transform.position += new Vector3(-1, 0, 0);
-
-            if (!ValidMovement())
-            {
-                transform.position -= new Vector3(-1, 0, 0);
-            }
-
-        }
-        // 右矢印キーで右に動く
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            transform.position += new Vector3(1, 0, 0);
-
-            if (!ValidMovement())
-            {
-                transform.position -= new Vector3(1, 0, 0);
-            }
-        }
-        // 自動で下に移動させつつ、下矢印キーでも移動する
-        else if (Input.GetKeyDown(KeyCode.DownArrow) || Time.time - previousTime >= fallTime)
-        {
-            transform.position += new Vector3(0, -1, 0);
-
-            if (!ValidMovement())
-            {
-                transform.position -= new Vector3(0, -1, 0);
-
-                AddToGrid();
-                CheckLines();
-                this.enabled = false;
-
-                //サウンド関数呼び出し
-                FindObjectOfType<SoundMino>().MinoSound();
-
-                //ターンの入れ替え
-                P2_Turn = true;
-                P1_Turn = false;
-
-                //ホールドフラグをあげる
-                HoldFlag = true;
-                //新しいMinoの生成
-                FindObjectOfType<SpawnMino>().Invoke("NewMino", 1.0f);
-            }
-            previousTime = Time.time;
-        }
-
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            // minoを上矢印キーを押して回転させる
-            transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), 90);
-
-            if (!ValidMovement())
-            {
-                transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), -90);
-            }
-
-
-        }
-
-        else if(Input.GetKeyDown(KeyCode.RightShift) && HoldFlag)
-        {
-            HoldFlag = false;
-            FindObjectOfType<SpawnMino>().HoldMino();
-        }
-    }
-
-    //プレイヤー２
-    private void MinoMovememt2()
     {
         // 左矢印キーで左に動く
         if (Input.GetKeyDown(KeyCode.A))
@@ -171,6 +102,91 @@ public class Mino : MonoBehaviour
                 FindObjectOfType<SoundMino>().MinoSound();
 
                 //ターンの入れ替え
+                P2_Turn = true;
+                P1_Turn = false;
+
+                //ホールドフラグをあげる
+                HoldFlag = true;
+                //新しいMinoの生成
+                FindObjectOfType<SpawnMino>().Invoke("NewMino", 1.0f);
+            }
+            previousTime = Time.time;
+        }
+
+        else if (Input.GetKeyDown(KeyCode.Q))
+        {
+            // minoを上矢印キーを押して回転させる
+            transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), 90);
+
+            if (!ValidMovement())
+            {
+                transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), -90);
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            // minoを上矢印キーを押して回転させる
+            transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), -90);
+
+            if (!ValidMovement())
+            {
+                transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), 90);
+            }
+        }
+
+        else if(Input.GetKeyDown(KeyCode.R) && HoldFlag)
+        {
+            HoldFlag = false;
+            FindObjectOfType<SpawnMino>().HoldMino();
+        }
+    }
+
+    //プレイヤー２
+    private void MinoMovememt2()
+    {
+        hori = Input.GetAxisRaw("Horizontal");
+        Verti = Input.GetAxisRaw("Vertical");
+
+        // 左矢印キーで左に動く
+        if ( hori == -1 && Input.GetButtonDown("Horizontal"))
+        {
+            //Xcontrol = false;
+            transform.position += new Vector3(-1, 0, 0);
+
+            if (!ValidMovement())
+            {
+                transform.position -= new Vector3(-1, 0, 0);
+            }
+
+        }
+        // 右矢印キーで右に動く
+        else if ( hori == 1 && Input.GetButtonDown("Horizontal"))
+        {
+            //Xcontrol = false;
+            transform.position += new Vector3(1, 0, 0);
+
+            if (!ValidMovement())
+            {
+                transform.position -= new Vector3(1, 0, 0);
+            }
+        }
+        // 自動で下に移動させつつ、したボタンでも移動する
+        else if ((Verti == -1 && Input.GetButtonDown("Vertical")) || Time.time - previousTime >= fallTime)
+        {
+            transform.position += new Vector3(0, -1, 0);
+
+            if (!ValidMovement())
+            {
+                transform.position -= new Vector3(0, -1, 0);
+
+                AddToGrid();
+                CheckLines();
+                this.enabled = false;
+
+                //サウンド関数呼び出し
+                FindObjectOfType<SoundMino>().MinoSound();
+
+                //ターンの入れ替え
                 if (!PvE)
                 {
                     P1_Turn = true;
@@ -190,9 +206,9 @@ public class Mino : MonoBehaviour
             previousTime = Time.time;
         }
 
-        else if (Input.GetKeyDown(KeyCode.W))
+        else if (Input.GetKeyDown("joystick button 4"))
         {
-            // minoを上矢印キーを押して回転させる
+            // minoをLBを押して左回転させる
             transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), 90);
 
             if (!ValidMovement())
@@ -200,8 +216,18 @@ public class Mino : MonoBehaviour
                 transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), -90);
             }
         }
+        else if(Input.GetKeyDown("joystick button 5"))
+        {
+            // minoをRBを押して右回転させる
+            transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), -90);
 
-        else if (Input.GetKeyDown(KeyCode.H) && HoldFlag)
+            if (!ValidMovement())
+            {
+                transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), 90);
+            }
+        }
+
+        else if (Input.GetKeyDown("joystick button 3") && HoldFlag)
         {
             HoldFlag = false;
             FindObjectOfType<SpawnMino>().HoldMino();
@@ -278,7 +304,7 @@ public class Mino : MonoBehaviour
             {
                 // GameOverメソッドを呼び出す
                 GameManager.GState = "Title";
-                Debug.Log("gameover");
+                //Debug.Log("gameover");
                 //HPどちら方０になったら
                 if (P1_Turn)
                 {
@@ -287,7 +313,7 @@ public class Mino : MonoBehaviour
                     FindObjectOfType<CharacterAnimation>().Player1WinAnime();
                    
                 }
-                if (P2_Turn)
+                if (P2_Turn || PvE)
                 {
                     Debug.Log("2win");
                     FindObjectOfType<CharacterAnimation>().Player2WinAnime();
