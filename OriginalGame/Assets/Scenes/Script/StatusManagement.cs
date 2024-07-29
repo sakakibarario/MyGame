@@ -177,9 +177,27 @@ public class StatusManagement : MonoBehaviour
     {
         StartCoroutine(AttackStart());
     }
+    public void EnemyAttackHandle()
+    {
+        StartCoroutine(EAttackStart());
+    }
+    IEnumerator EAttackStart()
+    {
+        FindObjectOfType<CharacterAnimation>().Player1AttackAnime();
+
+        yield return new WaitForSeconds(0.7f);//’x‰„
+
+        FindObjectOfType<CharacterAnimation>().Player2DamageAnime();
+        //Hp‚ğŒ¸‚ç‚·
+        yield return new WaitForSeconds(0.5f);//’x‰„
+        current2Hp -= isDamage;
+        Player2hpBar.fillAmount = (float)current2Hp / (float)Player2MaxHP;
+
+        yield break;
+    }
     IEnumerator AttackStart()
     {
-        if (Mino.P1_Turn || Mino.PvE)
+        if (Mino.P1_Turn)
             FindObjectOfType<CharacterAnimation>().Player1AttackAnime();
         if (Mino.P2_Turn || EnemyMoveRandom.EnemyMoveFlag)
             FindObjectOfType<CharacterAnimation>().Player2AttackAnime();
@@ -187,7 +205,7 @@ public class StatusManagement : MonoBehaviour
         if (!OnBuffFlag)
         {
             yield return new WaitForSeconds(0.7f);//’x‰„
-            if (Mino.P1_Turn || Mino.PvE)
+            if (Mino.P1_Turn)
             {
                 FindObjectOfType<CharacterAnimation>().Player2DamageAnime();
                 //Hp‚ğŒ¸‚ç‚·
@@ -206,8 +224,8 @@ public class StatusManagement : MonoBehaviour
         }
 
         if(GameManager.GState == "PvE" && EnemyMoveRandom.EnemyMoveFlag)
-            EnemyMoveEnd();//“G‚Ì“®‚«‚ğ‚Æ‚ß‚é        
-        
+            EnemyMoveEnd();//“G‚Ì“®‚«‚ğ‚Æ‚ß‚é
+ 
         yield break;
     }
 
@@ -277,6 +295,7 @@ public class StatusManagement : MonoBehaviour
         //‰ñ•œƒRƒ‹[ƒ`ƒ“
         StartCoroutine(RecoveryStart());
     }
+    
 
     IEnumerator RecoveryStart()
     {
@@ -316,7 +335,7 @@ public class StatusManagement : MonoBehaviour
         }
 
         if (GameManager.GState == "PvE" &&  EnemyMoveRandom.EnemyMoveFlag)
-            EnemyMoveEnd();//“G‚Ì“®‚«‚ğ‚Æ‚ß‚é     
+            EnemyMoveEnd();//“G‚Ì“®‚«‚ğ‚Æ‚ß‚é
         yield break;
     }
 
@@ -329,7 +348,7 @@ public class StatusManagement : MonoBehaviour
         if (Mino.P2_Turn )
         {
             P2HissatsuCount++;
-        }        
+        }
     }
 
     private void EnemyMoveEnd()

@@ -8,7 +8,7 @@ public class Mino : MonoBehaviour
     // minoが落ちるタイム
     public static float fallTime = 0.6f;
 
-    private static bool HoldFlag = true;//ホールド用
+    public static bool HoldFlag = true;//ホールド用
 
     // ステージの大きさ
     private static int width = 10;
@@ -27,8 +27,11 @@ public class Mino : MonoBehaviour
 
     //X軸
     private float hori = 0;
+    private bool Xaxiscontrol = false;
+   
     //Y軸
     private float Verti = 0;
+    private bool Yaxiscontrol = false;
 
     private static Transform[,] grid = new Transform[width, height];
 
@@ -45,7 +48,6 @@ public class Mino : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         if (GameManager.GState == "Playing")
         {
             if (P1_Turn)//プレイヤー１呼び出す
@@ -144,12 +146,22 @@ public class Mino : MonoBehaviour
     //プレイヤー２
     private void MinoMovememt2()
     {
-        hori = Input.GetAxisRaw("Horizontal");
-        Verti = Input.GetAxisRaw("Vertical");
+        Debug.Log(HoldFlag);
+        if (hori == 0)
+            Xaxiscontrol = true;
+        if (Verti == 0)
+            Yaxiscontrol = true;
 
+        hori  = Input.GetAxisRaw("Joystick_H");
+        Verti = Input.GetAxisRaw("Joystick_V");
+
+
+        //string AAA = Input.GetJoystickNames();
         // 左矢印キーで左に動く
-        if ( hori == -1 && Input.GetButtonDown("Horizontal"))
+        if ( hori < 0 && Xaxiscontrol)
         {
+            Xaxiscontrol = false;
+
             //Xcontrol = false;
             transform.position += new Vector3(-1, 0, 0);
 
@@ -160,9 +172,10 @@ public class Mino : MonoBehaviour
 
         }
         // 右矢印キーで右に動く
-        else if ( hori == 1 && Input.GetButtonDown("Horizontal"))
+        else if ( hori > 0 && Xaxiscontrol)
         {
-            //Xcontrol = false;
+            Xaxiscontrol = false;
+
             transform.position += new Vector3(1, 0, 0);
 
             if (!ValidMovement())
@@ -171,8 +184,10 @@ public class Mino : MonoBehaviour
             }
         }
         // 自動で下に移動させつつ、したボタンでも移動する
-        else if ((Verti == -1 && Input.GetButtonDown("Vertical")) || Time.time - previousTime >= fallTime)
+        else if ((Verti < 0 && Yaxiscontrol) || Time.time - previousTime >= fallTime)
         {
+            Yaxiscontrol = false;
+
             transform.position += new Vector3(0, -1, 0);
 
             if (!ValidMovement())
@@ -227,7 +242,7 @@ public class Mino : MonoBehaviour
             }
         }
 
-        else if (Input.GetKeyDown("joystick button 3") && HoldFlag)
+        else if (Input.GetKeyDown("joystick button 9") && HoldFlag)
         {
             HoldFlag = false;
             FindObjectOfType<SpawnMino>().HoldMino();

@@ -23,7 +23,7 @@ public class SpawnMino : MonoBehaviour
 
     //Œ»İ‚Ìƒz[ƒ‹ƒhó‹µ
     private static bool P1HoldFlag = false;
-    private static bool P2HoldFlag = false;
+    public static bool P2HoldFlag = false;
 
     // mino‰ñ“]
     public Vector3 rotationPoint = new Vector3(0,0,0);

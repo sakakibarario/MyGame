@@ -13,6 +13,8 @@ public class TitleScene : MonoBehaviour
     void Start()
     {
         AudioSource = GetComponent<AudioSource>();
+        Mino.HoldFlag = true;
+        SpawnMino.P2HoldFlag = false;
     }
 
     // Update is called once per frame

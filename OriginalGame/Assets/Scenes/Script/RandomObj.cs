@@ -27,7 +27,7 @@ public class RandomObj : MonoBehaviour
     {
         SpriteRenderer = GetComponent<SpriteRenderer>();
 
-        int rnd = Random.Range(1, 7);// ƒ‰ƒ“ƒ_ƒ€‚È®”‚ğ¶¬
+        int rnd = Random.Range(0, 11);// ƒ‰ƒ“ƒ_ƒ€‚È®”‚ğ¶¬
 
         if (rnd == 1 || rnd == 2)
         {
@@ -73,7 +73,6 @@ public class RandomObj : MonoBehaviour
     {
         if (GameManager.GState == "Playing" || GameManager.GState == "PvE")
         {
-            //Debug.Log("Destroyed");
             switch (Effects)
             {
                 case (int)effect.DEBUFF:
