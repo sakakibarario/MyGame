@@ -33,11 +33,14 @@ public class Mino : MonoBehaviour
     private float Verti = 0;
     private bool Yaxiscontrol = false;
 
+    private bool HardDropFlag = false;
+
     private static Transform[,] grid = new Transform[width, height];
 
     // Start is called before the first frame update
     void Start()
     {
+        HardDropFlag = true;
         //効果時間
         if (StatusManagement.DebuffTime > 0)
             FindObjectOfType<StatusManagement>().DebuffCount();
@@ -114,6 +117,40 @@ public class Mino : MonoBehaviour
             }
             previousTime = Time.time;
         }
+        else if (Input.GetKeyDown(KeyCode.W) && HardDropFlag)
+        {
+            Yaxiscontrol = false;
+
+            Debug.Log("hard");
+            HardDropFlag = false;
+
+            while (true)
+            {
+                transform.position += new Vector3(0, -1, 0);
+
+                if (!ValidMovement())
+                {
+                    transform.position -= new Vector3(0, -1, 0);
+
+                    AddToGrid();
+                    CheckLines();
+                    this.enabled = false;
+
+                    //サウンド関数呼び出し
+                    FindObjectOfType<SoundMino>().MinoSound();
+
+                    //ターンの入れ替え
+                    P2_Turn = true;
+                    P1_Turn = false;
+
+                    //ホールドフラグをあげる
+                    HoldFlag = true;
+                    //新しいMinoの生成
+                    FindObjectOfType<SpawnMino>().Invoke("NewMino", 1.0f);
+                }
+            }
+
+        }
 
         else if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -142,11 +179,12 @@ public class Mino : MonoBehaviour
             FindObjectOfType<SpawnMino>().HoldMino();
         }
     }
+    
+   
 
     //プレイヤー２
     private void MinoMovememt2()
     {
-        Debug.Log(HoldFlag);
         if (hori == 0)
             Xaxiscontrol = true;
         if (Verti == 0)
@@ -219,6 +257,50 @@ public class Mino : MonoBehaviour
                 FindObjectOfType<SpawnMino>().Invoke("NewMino", 1.0f);
             }
             previousTime = Time.time;
+        }
+
+        else if ((Verti > 0 && Yaxiscontrol) && HardDropFlag)
+        {
+            Yaxiscontrol = false;
+
+            Debug.Log("hard");
+            HardDropFlag = false;
+
+            while (true)
+            {
+                transform.position += new Vector3(0, -1, 0);
+
+                if (!ValidMovement())
+                {
+                    transform.position -= new Vector3(0, -1, 0);
+
+                    AddToGrid();
+                    CheckLines();
+                    this.enabled = false;
+
+                    //サウンド関数呼び出し
+                    FindObjectOfType<SoundMino>().MinoSound();
+
+                    //ターンの入れ替え
+                    if (!PvE)
+                    {
+                        P1_Turn = true;
+                        P2_Turn = false;
+                    }
+                    else
+                    {
+                        EnemyMoveCount--;
+                        if (EnemyMoveCount == 0)
+                            FindObjectOfType<EnemyMoveRandom>().EnemyMove();
+                    }
+                    //ホールドフラグをあげる
+                    HoldFlag = true;
+                    //新しいMinoの生成
+                    FindObjectOfType<SpawnMino>().Invoke("NewMino", 1.0f);
+                    break;
+                }
+            }
+
         }
 
         else if (Input.GetKeyDown("joystick button 4"))
