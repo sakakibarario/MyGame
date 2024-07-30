@@ -32,6 +32,7 @@ public class StatusManagement : MonoBehaviour
 
     //効果
     private int   isDamage 　  = 10;   //与えるダメージ
+    private int   isEnemyDamage= 30;   //敵が与えるダメージ
     private float isDebuff 　  = 0.2f; //Mino落下スピード
     private float MainFallTime = 0.6f; //Mino通常落下スピード
     private int   isRecovery   = 10;   //回復量
@@ -76,11 +77,13 @@ public class StatusManagement : MonoBehaviour
         //HPどちら方０になったら
         if (current1Hp <= 0)
         {
+            StopAllCoroutines();
             FindObjectOfType<CharacterAnimation>().Player2WinAnime();
             GameManager.GState = "Title";
         }
         if (current2Hp <= 0)
         {
+            StopAllCoroutines();
             FindObjectOfType<CharacterAnimation>().Player1WinAnime();
             GameManager.GState = "Title";
         }
@@ -213,12 +216,20 @@ public class StatusManagement : MonoBehaviour
                 current2Hp -= isDamage;
                 Player2hpBar.fillAmount = (float)current2Hp / (float)Player2MaxHP;
             }
-            if (Mino.P2_Turn || EnemyMoveRandom.EnemyMoveFlag)
+            if (Mino.P2_Turn)
             {
                 FindObjectOfType<CharacterAnimation>().Player1DamageAnime();
                 //Hpを減らす
                 yield return new WaitForSeconds(0.5f);//遅延
                 current1Hp -= isDamage;
+                Player1hpBar.fillAmount = (float)current1Hp / (float)Player1MaxHP;
+            }
+            if (EnemyMoveRandom.EnemyMoveFlag)
+            {
+                FindObjectOfType<CharacterAnimation>().Player1DamageAnime();
+                //Hpを減らす
+                yield return new WaitForSeconds(0.5f);//遅延
+                current1Hp -= isEnemyDamage;
                 Player1hpBar.fillAmount = (float)current1Hp / (float)Player1MaxHP;
             }
         }

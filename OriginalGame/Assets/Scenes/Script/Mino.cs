@@ -117,9 +117,9 @@ public class Mino : MonoBehaviour
             }
             previousTime = Time.time;
         }
+        //上ボタンでハードドロップ
         else if (Input.GetKeyDown(KeyCode.W) && HardDropFlag)
         {
-            Yaxiscontrol = false;
 
             Debug.Log("hard");
             HardDropFlag = false;
@@ -147,6 +147,7 @@ public class Mino : MonoBehaviour
                     HoldFlag = true;
                     //新しいMinoの生成
                     FindObjectOfType<SpawnMino>().Invoke("NewMino", 1.0f);
+                    break;//ループ終了
                 }
             }
 
@@ -258,7 +259,7 @@ public class Mino : MonoBehaviour
             }
             previousTime = Time.time;
         }
-
+        //上ボタンでハードドロップ
         else if ((Verti > 0 && Yaxiscontrol) && HardDropFlag)
         {
             Yaxiscontrol = false;
@@ -297,7 +298,7 @@ public class Mino : MonoBehaviour
                     HoldFlag = true;
                     //新しいMinoの生成
                     FindObjectOfType<SpawnMino>().Invoke("NewMino", 1.0f);
-                    break;
+                    break;//ループ終了
                 }
             }
 
