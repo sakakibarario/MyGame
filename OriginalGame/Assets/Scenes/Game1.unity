@@ -818,7 +818,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93748f532713a1a44a643b246a88c450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: 996b95468dc1483458986cad31b0af56, type: 3}
+  texture: {fileID: 2800000, guid: 90f72869266e6064482ac42f18119e4c, type: 3}
 --- !u!212 &583847389
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1196,7 +1196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93748f532713a1a44a643b246a88c450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 2800000, guid: b219f809ec0510448a25d36e896f01ef, type: 3}
+  texture: {fileID: 2800000, guid: 32a3d72fac13f9b49b98ba24896ccfe1, type: 3}
 --- !u!212 &1034489921
 SpriteRenderer:
   m_ObjectHideFlags: 0

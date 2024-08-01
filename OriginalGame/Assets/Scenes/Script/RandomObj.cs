@@ -31,8 +31,8 @@ public class RandomObj : MonoBehaviour
 
         if (rnd == 1 || rnd == 2)
         {
-            //ブラックノーマル
-            SpriteRenderer.color = new Color32(0, 0, 0, 255);
+            //ホワイトノーマル
+            SpriteRenderer.color = new Color32(255, 255, 255, 255);
             Effects = (int)effect.NORMAL;
         }
         if(rnd >= 3 && rnd <= 6)

@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     GameState currentState = GameState.Title;
 
     //public static string GState = "Title";//ƒQ[ƒ€‚Ìó‘Ô
-    public static string GState = "PvE";//ƒQ[ƒ€‚Ìó‘Ô
+    public static string GState = "Title";//ƒQ[ƒ€‚Ìó‘Ô
 
     // Start is called before the first frame update
     void Start()

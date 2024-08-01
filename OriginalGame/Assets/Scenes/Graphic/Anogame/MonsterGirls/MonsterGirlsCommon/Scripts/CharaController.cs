@@ -48,6 +48,12 @@ namespace anogamelib
             OnChangeSkin(0);
         }
 
+        public void CharacterDirection(int x,int y)
+        {
+            m_animator.SetFloat("x", x);
+            m_animator.SetFloat("y", y);
+        }
+
         private void Update()
         {
             //float fX = Input.GetAxisRaw("Horizontal");

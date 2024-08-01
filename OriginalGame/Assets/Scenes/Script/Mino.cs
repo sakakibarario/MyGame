@@ -411,11 +411,15 @@ public class Mino : MonoBehaviour
                     FindObjectOfType<CharacterAnimation>().Player1WinAnime();
                    
                 }
-                if (P2_Turn || PvE)
+                if (P2_Turn)
                 {
                     Debug.Log("2win");
                     FindObjectOfType<CharacterAnimation>().Player2WinAnime();
-                   
+                }
+                if (PvE)
+                {
+                    Debug.Log("lose");
+                    FindObjectOfType<CharacterAnimation>().PlayerloseAnime();
                 }
                // FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Title);
             }

@@ -32,7 +32,7 @@ public class StatusManagement : MonoBehaviour
 
     //効果
     private int   isDamage 　  = 10;   //与えるダメージ
-    private int   isEnemyDamage= 30;   //敵が与えるダメージ
+    private int   isEnemyDamage= 20;   //敵が与えるダメージ
     private float isDebuff 　  = 0.2f; //Mino落下スピード
     private float MainFallTime = 0.6f; //Mino通常落下スピード
     private int   isRecovery   = 10;   //回復量
@@ -77,12 +77,21 @@ public class StatusManagement : MonoBehaviour
         //HPどちら方０になったら
         if (current1Hp <= 0)
         {
+            //再生中のコルーチンを止める
             StopAllCoroutines();
-            FindObjectOfType<CharacterAnimation>().Player2WinAnime();
+            if (GameManager.GState == "PvE")
+            {
+                FindObjectOfType<CharacterAnimation>().PlayerloseAnime();
+            }
+            else
+            {
+                FindObjectOfType<CharacterAnimation>().Player2WinAnime();
+            }
             GameManager.GState = "Title";
         }
         if (current2Hp <= 0)
         {
+            //再生中のコルーチンを止める
             StopAllCoroutines();
             FindObjectOfType<CharacterAnimation>().Player1WinAnime();
             GameManager.GState = "Title";
