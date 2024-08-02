@@ -12,10 +12,9 @@ public class GameManager : MonoBehaviour
         PVP,
         Title,
         Demo,
-        PVE
+        PVE,
     }
     //フェード用
-    public string sceneNameR;
     public string sceneNameG;
     public string sceneNameT;
     public string sceneNameD;
@@ -69,7 +68,7 @@ public class GameManager : MonoBehaviour
     {
         GState = "Demo";
         Debug.Log("Demo");
-     
+        Initiate.Fade(sceneNameD, loadToColor, fadeSpeed);
     }
 
     void GameTitle()

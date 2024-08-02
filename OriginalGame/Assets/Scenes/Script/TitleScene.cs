@@ -57,4 +57,9 @@ public class TitleScene : MonoBehaviour
         // ゲームスタート処理を呼ぶ
         FindObjectOfType<GameManager>().dispatch(GameManager.GameState.PVE);
     }
+    public void OnTutorial()
+    {
+        // Tutorialへ移動
+        FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Demo);
+    }
 }
