@@ -15,6 +15,9 @@ public class TitleScene : MonoBehaviour
         AudioSource = GetComponent<AudioSource>();
         Mino.HoldFlag = true;
         SpawnMino.P2HoldFlag = false;
+        Mino.PvE = false;
+        Mino.P1_Turn = false;
+        Mino.P2_Turn = false;
     }
 
     // Update is called once per frame
@@ -34,14 +37,14 @@ public class TitleScene : MonoBehaviour
         {
             case 0:
                 Mino.P1_Turn = true;
-                Debug.Log("p1");
+               // Debug.Log("p1");
                 break;
             case 1:
                 Mino.P2_Turn = true;
-                Debug.Log("p2");
+                //Debug.Log("p2");
                 break;
             default:
-                Debug.Log("範囲外");
+                //Debug.Log("範囲外");
                 break;
         }
         // ゲームスタート処理を呼ぶ
@@ -59,6 +62,8 @@ public class TitleScene : MonoBehaviour
     }
     public void OnTutorial()
     {
+        //オーディオ再生
+        AudioSource.PlayOneShot(Sound1, 1.0f);
         // Tutorialへ移動
         FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Demo);
     }

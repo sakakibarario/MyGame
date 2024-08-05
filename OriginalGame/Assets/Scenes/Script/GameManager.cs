@@ -66,14 +66,14 @@ public class GameManager : MonoBehaviour
     void GameDemo()
     {
         GState = "Demo";
-        Debug.Log("Demo");
+        //Debug.Log("Demo");
         Initiate.Fade(sceneNameD, loadToColor, fadeSpeed);
     }
 
     void GameTitle()
     {
         GState = "Title";
-        Debug.Log("Title");
+       // Debug.Log("Title");
         Initiate.Fade(sceneNameT, loadToColor, fadeSpeed);
     }
 
@@ -88,14 +88,14 @@ public class GameManager : MonoBehaviour
     {
         GState = "Playing";
         Initiate.Fade(sceneNameG, loadToColor, fadeSpeed);
-        Debug.Log("playing");
+        //Debug.Log("playing");
     }
     // ゲームスタート処理
     void GamePVE()
     {
         GState = "PvE";
         Initiate.Fade(sceneNameE, loadToColor, fadeSpeed);
-        Debug.Log("playing");
+       // Debug.Log("playing");
     }
 
 }

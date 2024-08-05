@@ -7,14 +7,14 @@ public class CheckObj : MonoBehaviour
 {
     public void RecoveryEffect()
     {
-        Debug.Log("Recovery");
+        //Debug.Log("Recovery");
         if (GameManager.GState == "Playing" || GameManager.GState == "PvE")
             FindObjectOfType<StatusManagement>().RecoveryHandle();
     }
 
     public void AttackEffect()
     {
-        Debug.Log("Attack");
+        //Debug.Log("Attack");
         if (GameManager.GState == "Playing" )
             FindObjectOfType<StatusManagement>().AttackHandle();
         else if(GameManager.GState == "PvE")
@@ -23,20 +23,20 @@ public class CheckObj : MonoBehaviour
 
     public void NormalEffect()
     {
-        Debug.Log("Normal");
+        //Debug.Log("Normal");
         if (GameManager.GState == "Playing" || GameManager.GState == "PvE")
             FindObjectOfType<StatusManagement>().NormalHandle();
     }
     public void DebuffEffect()
     {
-        Debug.Log("Debuff");
+        //Debug.Log("Debuff");
         if (GameManager.GState == "Playing" || GameManager.GState == "PvE")
             FindObjectOfType<StatusManagement>().Invoke("DebuffHandle", 0.5f);
     }
 
     public void BuffEffect()
     {
-        Debug.Log("buff");
+       // Debug.Log("buff");
         if (GameManager.GState == "Playing" || GameManager.GState == "PvE")
             FindObjectOfType<StatusManagement>().Invoke("BuffHandle", 0.7f);
     }

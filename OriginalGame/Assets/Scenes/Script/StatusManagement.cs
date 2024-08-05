@@ -358,7 +358,7 @@ public class StatusManagement : MonoBehaviour
         }
         else if (EnemyMoveRandom.EnemyMoveFlag)
         {
-            Debug.Log("‚à‚¤ˆê“x");
+            //Debug.Log("‚à‚¤ˆê“x");
             FindObjectOfType<EnemyMoveRandom>().EnemyMove();
             yield break;
         }

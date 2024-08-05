@@ -121,7 +121,7 @@ public class Mino : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.W) && HardDropFlag)
         {
 
-            Debug.Log("hard");
+           // Debug.Log("hard");
             HardDropFlag = false;
 
             while (true)
@@ -264,7 +264,7 @@ public class Mino : MonoBehaviour
         {
             Yaxiscontrol = false;
 
-            Debug.Log("hard");
+            //Debug.Log("hard");
             HardDropFlag = false;
 
             while (true)
@@ -406,19 +406,19 @@ public class Mino : MonoBehaviour
                 //HP‚Ç‚¿‚ç•û‚O‚É‚È‚Á‚½‚ç
                 if (P1_Turn)
                 {
-                    Debug.Log("1win");
+                    //Debug.Log("1win");
                    
                     FindObjectOfType<CharacterAnimation>().Player1WinAnime();
                    
                 }
                 if (P2_Turn)
                 {
-                    Debug.Log("2win");
+                    //Debug.Log("2win");
                     FindObjectOfType<CharacterAnimation>().Player2WinAnime();
                 }
                 if (PvE)
                 {
-                    Debug.Log("lose");
+                    //Debug.Log("lose");
                     FindObjectOfType<CharacterAnimation>().PlayerloseAnime();
                 }
                // FindObjectOfType<GameManager>().dispatch(GameManager.GameState.Title);
