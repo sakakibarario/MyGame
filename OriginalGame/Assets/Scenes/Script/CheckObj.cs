@@ -8,8 +8,10 @@ public class CheckObj : MonoBehaviour
     public void RecoveryEffect()
     {
         //Debug.Log("Recovery");
-        if (GameManager.GState == "Playing" || GameManager.GState == "PvE")
+        if (GameManager.GState == "Playing")
             FindObjectOfType<StatusManagement>().RecoveryHandle();
+        else if (GameManager.GState == "PvE")
+            FindObjectOfType<StatusManagement>().EnemyRecovery();
     }
 
     public void AttackEffect()
@@ -30,8 +32,10 @@ public class CheckObj : MonoBehaviour
     public void DebuffEffect()
     {
         //Debug.Log("Debuff");
-        if (GameManager.GState == "Playing" || GameManager.GState == "PvE")
+        if (GameManager.GState == "Playing" )
             FindObjectOfType<StatusManagement>().Invoke("DebuffHandle", 0.5f);
+        else if(GameManager.GState == "PvE")
+            FindObjectOfType<StatusManagement>().Invoke("EnemyDevuff", 0.5f);
     }
 
     public void BuffEffect()

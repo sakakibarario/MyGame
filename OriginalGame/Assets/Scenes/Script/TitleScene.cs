@@ -18,6 +18,7 @@ public class TitleScene : MonoBehaviour
         Mino.PvE = false;
         Mino.P1_Turn = false;
         Mino.P2_Turn = false;
+        Mino.EnemyMoveCount = 3;
     }
 
     // Update is called once per frame

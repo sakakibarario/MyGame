@@ -70,6 +70,8 @@ public class StatusManagement : MonoBehaviour
 
         Player1 = GameObject.FindWithTag("Player");
         Player2 = GameObject.FindWithTag("Player2");
+        P1HissatsuCount = 0;
+        P2HissatsuCount = 0;
     }
 
     private void Update()
@@ -270,16 +272,16 @@ public class StatusManagement : MonoBehaviour
             FindObjectOfType<Particle>().EffectDebuff(Player1.transform.position.x, Player1.transform.position.y);//デバフエフェクト
             Mino.fallTime = isDebuff;
             DebuffTime = EffectCount;
-        }
-        if(Mino.PvE)
-        {
-            FindObjectOfType<CharacterAnimation>().Player1DebuffAnime();//デバフアニメーション
-            FindObjectOfType<Particle>().EffectDebuff(Player2.transform.position.x, Player2.transform.position.y);//デバフエフェクト
-            //敵の攻撃を遅らせる
-            Mino.EnemyMoveCount++;
-        }
+        }  
         if (GameManager.GState == "PvE" && EnemyMoveRandom.EnemyMoveFlag)
             EnemyMoveEnd();//敵の動きをとめる     
+    }
+    public void EnemyDevuff()
+    {
+        FindObjectOfType<CharacterAnimation>().Player1DebuffAnime();//デバフアニメーション
+        FindObjectOfType<Particle>().EffectDebuff(Player2.transform.position.x, Player2.transform.position.y);//デバフエフェクト
+         //敵の攻撃を遅らせる
+        Mino.EnemyMoveCount++;
     }
 
     public void BuffHandle()
@@ -325,6 +327,25 @@ public class StatusManagement : MonoBehaviour
         StartCoroutine(RecoveryStart());
     }
     
+    public void EnemyRecovery()
+    {
+        //回復コルーチン
+        StartCoroutine(ERecoveryStart());
+    }
+    IEnumerator ERecoveryStart()
+    {
+        //HPがマックスでないなら
+        if (current1Hp < Player1MaxHP)
+        {
+            //アニメーション再生
+            FindObjectOfType<CharacterAnimation>().Player1RecoveryAnime();
+            yield return new WaitForSeconds(2.3f);//遅延
+                                                  //Hpを回復
+            current1Hp += isRecovery;
+            Player1hpBar.fillAmount = (float)current1Hp / (float)Player1MaxHP;//HPバーに判定
+        }
+        yield break;
+    }
 
     IEnumerator RecoveryStart()
     {
@@ -332,7 +353,7 @@ public class StatusManagement : MonoBehaviour
         if (current1Hp < Player1MaxHP)
         {
             //P1
-            if (Mino.P1_Turn || Mino.PvE)
+            if (Mino.P1_Turn)
             {
                 //アニメーション再生
                 FindObjectOfType<CharacterAnimation>().Player1RecoveryAnime();
