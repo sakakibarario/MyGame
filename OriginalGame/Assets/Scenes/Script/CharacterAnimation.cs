@@ -25,6 +25,18 @@ public class CharacterAnimation : MonoBehaviour
     private int Orb    = 5;  //バフ
     private int Sleep  = 6;  //敗北時
 
+    //サウンド
+    public AudioClip AttackSound;  //攻撃サウンド
+    public AudioClip DamageSound; //ダメージサウンド
+    public AudioClip HeelSound;   //回復サウンド
+    public AudioClip DebuffSound; //デバフサウンド
+    public AudioClip BuffSound;   //バフサウンド
+
+    private AudioClip NowSound1;//現在のサウンド
+    private AudioClip NowSound2;//現在のサウンド
+
+    AudioSource AudioSource;
+
     //勝利フラグ
     private bool WinFlag = false;
     //敗北フラグ
@@ -60,6 +72,7 @@ public class CharacterAnimation : MonoBehaviour
         Sr1 = Player1.GetComponent<SpriteRenderer>();
         Sr2 = Player2.GetComponent<SpriteRenderer>();
         Renderer = BackGround.GetComponent<SpriteRenderer>();
+        AudioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -119,6 +132,8 @@ public class CharacterAnimation : MonoBehaviour
     {
         //Damegeアニメションをセット
         m_iAnimationIndex1 = Damage;
+        //Damgeサウンドをセット
+        NowSound1 = DamageSound;
         //アニメーション再生関数を呼ぶ
         PlayAnime1();
     }
@@ -126,6 +141,8 @@ public class CharacterAnimation : MonoBehaviour
     {
         //Damegeアニメションをセット
         m_iAnimationIndex2 = Damage;
+        //Damgeサウンドをセット
+        NowSound2 = DamageSound;
         //アニメーション再生関数を呼ぶ
         PlayAnime2();
     }
@@ -135,6 +152,8 @@ public class CharacterAnimation : MonoBehaviour
     {
         //Attackアニメーションをセット
         m_iAnimationIndex1 = Attck;
+        //Attackサウンドをセット
+        NowSound1 = AttackSound;
         //アニメーション関数を呼ぶ
         PlayAnime1();
     }
@@ -142,6 +161,8 @@ public class CharacterAnimation : MonoBehaviour
     {
         //Attackアニメーションをセット
         m_iAnimationIndex2 = Attck;
+        //Attackサウンドをセット
+        NowSound2 = AttackSound;
         //アニメーション関数を呼ぶ
         PlayAnime2();
     }
@@ -151,6 +172,8 @@ public class CharacterAnimation : MonoBehaviour
     {
         //Drinkアニメーションをセット
         m_iAnimationIndex1 = Drink;
+        //Heelサウンドをセット
+        NowSound1 = HeelSound;
         //アニメーション関数を呼ぶ
         PlayAnime1();
     }
@@ -158,6 +181,8 @@ public class CharacterAnimation : MonoBehaviour
     {
         //Drinkアニメーションをセット
         m_iAnimationIndex2 = Drink;
+        //Heelサウンドをセット
+        NowSound2 = HeelSound;
         //アニメーション関数を呼ぶ
         PlayAnime2();
     }
@@ -167,6 +192,8 @@ public class CharacterAnimation : MonoBehaviour
     {
         //Orbアニメションをセット
         m_iAnimationIndex1 = Orb;
+        //Buffサウンドをセット
+        NowSound1 = BuffSound;
         //アニメーション関数を呼ぶ
         PlayAnime1();
     }
@@ -174,6 +201,8 @@ public class CharacterAnimation : MonoBehaviour
     {
         //Orbアニメションをセット
         m_iAnimationIndex2 = Orb;
+        //Buffサウンドをセット
+        NowSound2 = BuffSound;
         //アニメーション関数を呼ぶ
         PlayAnime2();
     }
@@ -183,6 +212,8 @@ public class CharacterAnimation : MonoBehaviour
     {
         //Magicアニメションをセット
         m_iAnimationIndex1 = Magic;
+        //Debuffサウンドをセット
+        NowSound1 = DebuffSound;
         //アニメーション関数を呼ぶ
         PlayAnime1();
     }
@@ -190,6 +221,8 @@ public class CharacterAnimation : MonoBehaviour
     {
         //Magicアニメションをセット
         m_iAnimationIndex2 = Magic;
+        //Debuffサウンドをセット
+        NowSound2 = DebuffSound;
         //アニメーション関数を呼ぶ
         PlayAnime2();
     }
@@ -232,6 +265,7 @@ public class CharacterAnimation : MonoBehaviour
     {
         //アニメショーン再生
         m_animatorChara1.SetTrigger(AnimationName[m_iAnimationIndex1]);
+
         if (WinFlag)
         {
             //cellの削除
@@ -251,10 +285,13 @@ public class CharacterAnimation : MonoBehaviour
         }
         if(LoseFlag)
         {
+            //GOverBgmに変更
+            FindObjectOfType<Game1Bgm>().GOverBgm();
             //cellの削除
             FindObjectOfType<DestroyObj>().DestroyObject();
             //バックグラウンドの背景を前に持ってくる
             Renderer.sortingOrder = 0;
+            FindObjectOfType<Particle>().EffectGOver();//エフェクトGオーバー
             //characterの向き変更
             FindObjectOfType<anogamelib.CharaController>().CharacterDirection(0, -1);
             //勝利時画面の中央に移動
@@ -265,11 +302,18 @@ public class CharacterAnimation : MonoBehaviour
             //シーン切り替え関数呼び出し
             Invoke("TitleScene", 5.0f);
         }
+        if(!LoseFlag && !WinFlag)
+        {
+            //サウンドの再生
+            AudioSource.PlayOneShot(NowSound1, 0.5f);
+        }
     }
     public void PlayAnime2()
     {
         //アニメショーン再生
         m_animatorChara2.SetTrigger(AnimationName[m_iAnimationIndex2]);
+        
+
         if (WinFlag)
         {
             //cellの削除
@@ -286,6 +330,11 @@ public class CharacterAnimation : MonoBehaviour
             Sr1.color = new Color32(255, 255, 255, 140);
             //シーン切り替え関数呼び出し
             Invoke("TitleScene", 5.0f);
+        }
+        else
+        {
+            //サウンドの再生
+            AudioSource.PlayOneShot(NowSound2, 0.5f);
         }
     }
 

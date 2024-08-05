@@ -11,6 +11,9 @@ public class Particle : MonoBehaviour
     private bool ClearFlag = false;
     private bool GOverFlag = false;
 
+    AudioSource AudioSource;
+    public AudioClip HnabiSound;
+
     public enum Effect
     {
         Impulse,
@@ -21,7 +24,7 @@ public class Particle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        AudioSource = GetComponent<AudioSource>();
     }
     private void Update()
     {
@@ -32,14 +35,13 @@ public class Particle : MonoBehaviour
             int Posx = Random.Range(0, 10);
             //花火生成
             Instantiate(effectsList[(int)Effect.Clear], new Vector2(Posx,this.transform.position.y), Quaternion.identity);
+            AudioSource.PlayOneShot(HnabiSound, 0.6f);
         }
         //GameOverフラグ
         if(GOverFlag)
         {
-            //X座標を指定の範囲からランダムで取得
-            int Posx = Random.Range(0, 10);
             //髑髏生成
-            Instantiate(effectsList[(int)Effect.GOver], new Vector2(Posx, this.transform.position.y), Quaternion.identity);
+            Instantiate(effectsList[(int)Effect.GOver], new Vector2(4.3f, 8), Quaternion.identity);
         }
     }
 
@@ -80,7 +82,7 @@ public class Particle : MonoBehaviour
         GOverFlag = false;
 
         yield return new WaitForSeconds(0.7f);
-        yield return StartCoroutine(ClearEffect());
+        yield return StartCoroutine(GOverEffect());
 
         yield break;
     }

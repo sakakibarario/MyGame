@@ -197,7 +197,7 @@ public class Mino : MonoBehaviour
 
         //string AAA = Input.GetJoystickNames();
         // 左矢印キーで左に動く
-        if ( hori < 0 && Xaxiscontrol)
+        if ( hori < 0 && Xaxiscontrol || Input.GetKeyDown(KeyCode.LeftArrow))
         {
             Xaxiscontrol = false;
 
@@ -211,7 +211,7 @@ public class Mino : MonoBehaviour
 
         }
         // 右矢印キーで右に動く
-        else if ( hori > 0 && Xaxiscontrol)
+        else if ( hori > 0 && Xaxiscontrol || Input.GetKeyDown(KeyCode.RightArrow))
         {
             Xaxiscontrol = false;
 
@@ -223,7 +223,7 @@ public class Mino : MonoBehaviour
             }
         }
         // 自動で下に移動させつつ、したボタンでも移動する
-        else if ((Verti < 0 && Yaxiscontrol) || Time.time - previousTime >= fallTime)
+        else if ((Verti < 0 && Yaxiscontrol) || Time.time - previousTime >= fallTime || Input.GetKeyDown(KeyCode.DownArrow))
         {
             Yaxiscontrol = false;
 
@@ -260,7 +260,7 @@ public class Mino : MonoBehaviour
             previousTime = Time.time;
         }
         //上ボタンでハードドロップ
-        else if ((Verti > 0 && Yaxiscontrol) && HardDropFlag)
+        else if ((Verti > 0 && Yaxiscontrol)|| Input.GetKeyDown(KeyCode.UpArrow) && HardDropFlag)
         {
             Yaxiscontrol = false;
 

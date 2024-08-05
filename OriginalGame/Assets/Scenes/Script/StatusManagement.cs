@@ -156,6 +156,7 @@ public class StatusManagement : MonoBehaviour
         if (Mino.P1_Turn || Mino.PvE)
         {
             FindObjectOfType<CharacterAnimation>().Player2DamageAnime();
+            FindObjectOfType<Particle>().EffectImpulse(Player2.transform.position.x - 2.0f, Player2.transform.position.y);//ダメージエフェクト
             //Hpを減らす
             yield return new WaitForSeconds(0.5f);//遅延
             current2Hp -= HissatuDamage;
@@ -164,6 +165,7 @@ public class StatusManagement : MonoBehaviour
         if (Mino.P2_Turn)
         {
             FindObjectOfType<CharacterAnimation>().Player1DamageAnime();
+            FindObjectOfType<Particle>().EffectImpulse(Player1.transform.position.x + 2.0f, Player1.transform.position.y);//ダメージエフェクト
             //Hpを減らす
             yield return new WaitForSeconds(0.5f);//遅延
             current1Hp -= HissatuDamage;
@@ -200,6 +202,7 @@ public class StatusManagement : MonoBehaviour
         yield return new WaitForSeconds(0.7f);//遅延
 
         FindObjectOfType<CharacterAnimation>().Player2DamageAnime();
+        FindObjectOfType<Particle>().EffectImpulse(Player2.transform.position.x - 2.0f, Player2.transform.position.y);//ダメージエフェクト
         //Hpを減らす
         yield return new WaitForSeconds(0.5f);//遅延
         current2Hp -= isDamage;
@@ -220,7 +223,7 @@ public class StatusManagement : MonoBehaviour
             if (Mino.P1_Turn)
             {
                 FindObjectOfType<CharacterAnimation>().Player2DamageAnime();//ダメージアニメーション
-                FindObjectOfType<Particle>().EffectImpulse(Player2.transform.position.x, Player2.transform.position.y);//ダメージエフェクト
+                FindObjectOfType<Particle>().EffectImpulse(Player2.transform.position.x -2.0f, Player2.transform.position.y);//ダメージエフェクト
                 //Hpを減らす
                 yield return new WaitForSeconds(0.5f);//遅延
                 current2Hp -= isDamage;
@@ -229,7 +232,7 @@ public class StatusManagement : MonoBehaviour
             if (Mino.P2_Turn)
             {
                 FindObjectOfType<CharacterAnimation>().Player1DamageAnime();//ダメージアニメーション
-                FindObjectOfType<Particle>().EffectImpulse(Player1.transform.position.x, Player1.transform.position.y);//ダメージエフェクト
+                FindObjectOfType<Particle>().EffectImpulse(Player1.transform.position.x + 2.0f, Player1.transform.position.y);//ダメージエフェクト
                 //Hpを減らす
                 yield return new WaitForSeconds(0.5f);//遅延
                 current1Hp -= isDamage;
@@ -238,7 +241,7 @@ public class StatusManagement : MonoBehaviour
             if (EnemyMoveRandom.EnemyMoveFlag)
             {
                 FindObjectOfType<CharacterAnimation>().Player1DamageAnime();//ダメージアニメーション
-                FindObjectOfType<Particle>().EffectImpulse(Player1.transform.position.x, Player1.transform.position.y);//ダメージエフェクト
+                FindObjectOfType<Particle>().EffectImpulse(Player1.transform.position.x + 2.0f, Player1.transform.position.y);//ダメージエフェクト
                 //Hpを減らす
                 yield return new WaitForSeconds(0.5f);//遅延
                 current1Hp -= isEnemyDamage;
