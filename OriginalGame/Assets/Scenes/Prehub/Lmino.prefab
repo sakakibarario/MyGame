@@ -94,10 +94,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4129296501990829436}
   - component: {fileID: -6689469423306326}
-  - component: {fileID: 8109118875828447964}
   m_Layer: 0
   m_Name: Lmino
-  m_TagString: Untagged
+  m_TagString: Mino
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -135,18 +134,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousTime: 0
   rotationPoint: {x: 0, y: 0, z: 0}
---- !u!114 &8109118875828447964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2506028296345793529}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 126d4ba2ccc65a64698ce37fe11e9e17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4419839015450035504
 GameObject:
   m_ObjectHideFlags: 0

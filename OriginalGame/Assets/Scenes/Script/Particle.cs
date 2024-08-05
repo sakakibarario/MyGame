@@ -9,12 +9,14 @@ public class Particle : MonoBehaviour
     [System.NonSerialized] public GameObject currentEffect;
 
     private bool ClearFlag = false;
+    private bool GOverFlag = false;
 
     public enum Effect
     {
         Impulse,
         Debuff,
         Clear,
+        GOver,
     }
     // Start is called before the first frame update
     void Start()
@@ -23,10 +25,7 @@ public class Particle : MonoBehaviour
     }
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.P))
-        {
-            EffectClear();
-        }
+        //勝利フラグ
         if(ClearFlag)
         {
             //X座標を指定の範囲からランダムで取得
@@ -34,29 +33,61 @@ public class Particle : MonoBehaviour
             //花火生成
             Instantiate(effectsList[(int)Effect.Clear], new Vector2(Posx,this.transform.position.y), Quaternion.identity);
         }
+        //GameOverフラグ
+        if(GOverFlag)
+        {
+            //X座標を指定の範囲からランダムで取得
+            int Posx = Random.Range(0, 10);
+            //髑髏生成
+            Instantiate(effectsList[(int)Effect.GOver], new Vector2(Posx, this.transform.position.y), Quaternion.identity);
+        }
     }
 
     public void EffectImpulse(float x, float y)
     {
+        //ダメージエフェクト
         Instantiate(effectsList[(int)Effect.Impulse], new Vector2(x, y), Quaternion.identity);
     }
 
     public void EffectClear()
     {
+        //花火エフェクトコルーチン
         StartCoroutine(ClearEffect());   
     }
     IEnumerator ClearEffect()
     {
         ClearFlag = true;
+
         yield return new WaitForSeconds(0.05f);
         ClearFlag = false;
+
         yield return new WaitForSeconds(0.7f);
         yield return StartCoroutine(ClearEffect());
+
+        yield break;
+    }
+
+    public void EffectGOver()
+    {
+        //髑髏エフェクトコルーチン
+        StartCoroutine(GOverEffect());
+    }
+    IEnumerator GOverEffect()
+    {
+        GOverFlag = true;
+
+        yield return new WaitForSeconds(0.05f);
+        GOverFlag = false;
+
+        yield return new WaitForSeconds(0.7f);
+        yield return StartCoroutine(ClearEffect());
+
         yield break;
     }
 
     public void EffectDebuff(float x,float y)
     {
+        //デバフエフェクト
         Instantiate(effectsList[(int)Effect.Debuff], new Vector2(x, y), Quaternion.identity);
     }
 

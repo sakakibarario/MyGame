@@ -235,7 +235,7 @@ public class CharacterAnimation : MonoBehaviour
         if (WinFlag)
         {
             //cellの削除
-            FindObjectOfType<DestroyMino>().MinoDestroy();
+            FindObjectOfType<DestroyObj>().DestroyObject();
             //バックグラウンドの背景を前に持ってくる
             Renderer.sortingOrder = 0;
             FindObjectOfType<Particle>().EffectClear();//エフェクトクリア
@@ -252,7 +252,7 @@ public class CharacterAnimation : MonoBehaviour
         if(LoseFlag)
         {
             //cellの削除
-            FindObjectOfType<DestroyMino>().MinoDestroy();
+            FindObjectOfType<DestroyObj>().DestroyObject();
             //バックグラウンドの背景を前に持ってくる
             Renderer.sortingOrder = 0;
             //characterの向き変更
@@ -273,7 +273,7 @@ public class CharacterAnimation : MonoBehaviour
         if (WinFlag)
         {
             //cellの削除
-            FindObjectOfType<DestroyMino>().MinoDestroy();
+            FindObjectOfType<DestroyObj>().DestroyObject();
             //バックグラウンドの背景を前に持ってくる
             Renderer.sortingOrder = 0;
             FindObjectOfType<Particle>().EffectClear();//エフェクトクリア

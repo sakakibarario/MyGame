@@ -238,7 +238,7 @@ public class StatusManagement : MonoBehaviour
             if (EnemyMoveRandom.EnemyMoveFlag)
             {
                 FindObjectOfType<CharacterAnimation>().Player1DamageAnime();//ダメージアニメーション
-                //FindObjectOfType<Particle>().EffectImpulse(Player2.transform.position.x, Player2.transform.position.y);//ダメージエフェクト
+                FindObjectOfType<Particle>().EffectImpulse(Player1.transform.position.x, Player1.transform.position.y);//ダメージエフェクト
                 //Hpを減らす
                 yield return new WaitForSeconds(0.5f);//遅延
                 current1Hp -= isEnemyDamage;

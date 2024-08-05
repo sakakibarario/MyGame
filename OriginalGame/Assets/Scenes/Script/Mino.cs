@@ -241,7 +241,7 @@ public class Mino : MonoBehaviour
                 FindObjectOfType<SoundMino>().MinoSound();
 
                 //ƒ^[ƒ“‚Ì“ü‚ê‘Ö‚¦
-                if (!PvE)
+                if (GameManager.GState == "Playing")
                 {
                     P1_Turn = true;
                     P2_Turn = false;

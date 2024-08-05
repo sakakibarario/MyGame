@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 110748}
   - component: {fileID: 110747}
+  - component: {fileID: 110749}
   m_Layer: 0
   m_Name: cell
   m_TagString: Untagged
@@ -168,6 +169,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &110749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 110746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 449d696bdda16b542bac4def4487feb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &100476360
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,7 +488,7 @@ GameObject:
   - component: {fileID: 276991072}
   m_Layer: 0
   m_Name: Square
-  m_TagString: Untagged
+  m_TagString: Cell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -559,6 +572,7 @@ GameObject:
   - component: {fileID: 325383740}
   - component: {fileID: 325383739}
   - component: {fileID: 325383738}
+  - component: {fileID: 325383742}
   m_Layer: 0
   m_Name: GameManagement
   m_TagString: Untagged
@@ -674,7 +688,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79abd16ebfac4eb4c8941562c14be73f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneNameR: Title
   sceneNameG: Title
   sceneNameT: Title
   sceneNameD: Title
@@ -708,6 +721,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &325383742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 325383737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7859639f1adb69644b6dc29b9983119c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectsList:
+  - {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
+  - {fileID: 5642766282230003982, guid: b5c8ca7ed10b61e499cce8ec3b6e2e4c, type: 3}
+  - {fileID: 1978689737715041617, guid: afa54037ffe627545886e2741abb365d, type: 3}
+  - {fileID: 5985634496115995773, guid: 463cf9f7af4680240898f6aeba3fe3e6, type: 3}
 --- !u!1 &474872526
 GameObject:
   m_ObjectHideFlags: 0

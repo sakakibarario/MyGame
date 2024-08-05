@@ -37,8 +37,11 @@ public class SpawnMino : MonoBehaviour
 
     public void NewMino()
     {
-        //MinoÇÃê∂ê¨
-        clonedObject = Instantiate(Minos[Random.Range(0, Minos.Length)], new Vector2(transform.position.x - 1.0f, transform.position.y + 2.0f), Quaternion.identity);
+        if(GameManager.GState == "Playing" || GameManager.GState == "PvE")
+        {
+            //MinoÇÃê∂ê¨
+            clonedObject = Instantiate(Minos[Random.Range(0, Minos.Length)], new Vector2(transform.position.x - 1.0f, transform.position.y + 2.0f), Quaternion.identity);
+        }  
     }
 
     public void HoldMino()
