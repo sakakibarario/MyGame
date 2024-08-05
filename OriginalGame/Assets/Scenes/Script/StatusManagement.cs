@@ -219,7 +219,8 @@ public class StatusManagement : MonoBehaviour
             yield return new WaitForSeconds(0.7f);//遅延
             if (Mino.P1_Turn)
             {
-                FindObjectOfType<CharacterAnimation>().Player2DamageAnime();
+                FindObjectOfType<CharacterAnimation>().Player2DamageAnime();//ダメージアニメーション
+                FindObjectOfType<Particle>().EffectImpulse(Player2.transform.position.x, Player2.transform.position.y);//ダメージエフェクト
                 //Hpを減らす
                 yield return new WaitForSeconds(0.5f);//遅延
                 current2Hp -= isDamage;
@@ -227,7 +228,8 @@ public class StatusManagement : MonoBehaviour
             }
             if (Mino.P2_Turn)
             {
-                FindObjectOfType<CharacterAnimation>().Player1DamageAnime();
+                FindObjectOfType<CharacterAnimation>().Player1DamageAnime();//ダメージアニメーション
+                FindObjectOfType<Particle>().EffectImpulse(Player1.transform.position.x, Player1.transform.position.y);//ダメージエフェクト
                 //Hpを減らす
                 yield return new WaitForSeconds(0.5f);//遅延
                 current1Hp -= isDamage;
@@ -235,7 +237,8 @@ public class StatusManagement : MonoBehaviour
             }
             if (EnemyMoveRandom.EnemyMoveFlag)
             {
-                FindObjectOfType<CharacterAnimation>().Player1DamageAnime();
+                FindObjectOfType<CharacterAnimation>().Player1DamageAnime();//ダメージアニメーション
+                //FindObjectOfType<Particle>().EffectImpulse(Player2.transform.position.x, Player2.transform.position.y);//ダメージエフェクト
                 //Hpを減らす
                 yield return new WaitForSeconds(0.5f);//遅延
                 current1Hp -= isEnemyDamage;
@@ -253,19 +256,22 @@ public class StatusManagement : MonoBehaviour
     {
         if (Mino.P1_Turn)
         {
-            FindObjectOfType<CharacterAnimation>().Player1DebuffAnime();
+            FindObjectOfType<CharacterAnimation>().Player1DebuffAnime();//デバフアニメーション
+            FindObjectOfType<Particle>().EffectDebuff(Player2.transform.position.x, Player2.transform.position.y);//デバフエフェクト
             Mino.fallTime = isDebuff;
             DebuffTime = EffectCount;
         }
         if (Mino.P2_Turn || EnemyMoveRandom.EnemyMoveFlag)
         {
-            FindObjectOfType<CharacterAnimation>().Player2DebuffAnime();
+            FindObjectOfType<CharacterAnimation>().Player2DebuffAnime();//デバフアニメーション
+            FindObjectOfType<Particle>().EffectDebuff(Player1.transform.position.x, Player1.transform.position.y);//デバフエフェクト
             Mino.fallTime = isDebuff;
             DebuffTime = EffectCount;
         }
         if(Mino.PvE)
         {
-            FindObjectOfType<CharacterAnimation>().Player1DebuffAnime();
+            FindObjectOfType<CharacterAnimation>().Player1DebuffAnime();//デバフアニメーション
+            FindObjectOfType<Particle>().EffectDebuff(Player2.transform.position.x, Player2.transform.position.y);//デバフエフェクト
             //敵の攻撃を遅らせる
             Mino.EnemyMoveCount++;
         }

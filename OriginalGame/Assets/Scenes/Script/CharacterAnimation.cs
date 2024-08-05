@@ -232,10 +232,29 @@ public class CharacterAnimation : MonoBehaviour
     {
         //アニメショーン再生
         m_animatorChara1.SetTrigger(AnimationName[m_iAnimationIndex1]);
-        if (WinFlag || LoseFlag)
+        if (WinFlag)
         {
+            //cellの削除
+            FindObjectOfType<DestroyMino>().MinoDestroy();
             //バックグラウンドの背景を前に持ってくる
-            Renderer.sortingOrder = 10;
+            Renderer.sortingOrder = 0;
+            FindObjectOfType<Particle>().EffectClear();//エフェクトクリア
+            //characterの向き変更
+            FindObjectOfType<anogamelib.CharaController>().CharacterDirection(0, -1);
+            //勝利時画面の中央に移動
+            transform.position = new Vector2(8.0f, 5.0f);
+            //不透明度を戻す
+            Sr1.color = new Color32(255, 255, 255, 255);
+            Sr2.color = new Color32(255, 255, 255, 140);
+            //シーン切り替え関数呼び出し
+            Invoke("TitleScene", 5.0f);
+        }
+        if(LoseFlag)
+        {
+            //cellの削除
+            FindObjectOfType<DestroyMino>().MinoDestroy();
+            //バックグラウンドの背景を前に持ってくる
+            Renderer.sortingOrder = 0;
             //characterの向き変更
             FindObjectOfType<anogamelib.CharaController>().CharacterDirection(0, -1);
             //勝利時画面の中央に移動
@@ -253,8 +272,11 @@ public class CharacterAnimation : MonoBehaviour
         m_animatorChara2.SetTrigger(AnimationName[m_iAnimationIndex2]);
         if (WinFlag)
         {
+            //cellの削除
+            FindObjectOfType<DestroyMino>().MinoDestroy();
             //バックグラウンドの背景を前に持ってくる
-            Renderer.sortingOrder = 10;
+            Renderer.sortingOrder = 0;
+            FindObjectOfType<Particle>().EffectClear();//エフェクトクリア
             //characterの向き変更
             FindObjectOfType<anogamelib.CharaController>().CharacterDirection(0, -1);
             //勝利時画面の中央に移動

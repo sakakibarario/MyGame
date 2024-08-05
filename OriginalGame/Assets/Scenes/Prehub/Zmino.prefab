@@ -279,6 +279,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7029596212638728076}
   - component: {fileID: -1589164242749968995}
+  - component: {fileID: -4166879017502353402}
   m_Layer: 0
   m_Name: Zmino
   m_TagString: Untagged
@@ -319,6 +320,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousTime: 0
   rotationPoint: {x: 0, y: 0, z: 0}
+--- !u!114 &-4166879017502353402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4552358487996930447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 126d4ba2ccc65a64698ce37fe11e9e17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5302960809998402948
 GameObject:
   m_ObjectHideFlags: 0
