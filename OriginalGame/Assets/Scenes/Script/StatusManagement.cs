@@ -186,7 +186,7 @@ public class StatusManagement : MonoBehaviour
     public void BuffCount()
     {
         BuffTime--;
-        Debug.Log(DebuffTime);
+       // Debug.Log(DebuffTime);
     }
 
     public void AttackHandle()
@@ -297,7 +297,7 @@ public class StatusManagement : MonoBehaviour
         if (!CircleFlag)//Circleを生成していないなら
         {
             //P1
-            if (Mino.P1_Turn || Mino.PvE)
+            if (Mino.P1_Turn || GameManager.GState == "PvE")
             {
                 CircleFlag = true;
                 //アニメーション再生

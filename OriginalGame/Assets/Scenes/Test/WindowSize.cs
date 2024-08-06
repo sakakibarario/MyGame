@@ -9,6 +9,6 @@ public class WindowSize
     {
         Debug.Log("After Scene is loaded and game is running");
         // スクリーンサイズの指定
-        Screen.SetResolution(950, 950, false);
+        Screen.SetResolution(855, 855, false);
     }
 }
