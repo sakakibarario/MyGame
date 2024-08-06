@@ -153,7 +153,7 @@ public class Mino : MonoBehaviour
 
         }
 
-        else if (Input.GetKeyDown(KeyCode.Q))
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             // minoを上矢印キーを押して回転させる
             transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), 90);
@@ -163,7 +163,7 @@ public class Mino : MonoBehaviour
                 transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), -90);
             }
         }
-        else if (Input.GetKeyDown(KeyCode.E))
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             // minoを上矢印キーを押して回転させる
             transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), -90);
@@ -174,7 +174,7 @@ public class Mino : MonoBehaviour
             }
         }
 
-        else if(Input.GetKeyDown(KeyCode.R) && HoldFlag)
+        else if(Input.GetKeyDown(KeyCode.UpArrow) && HoldFlag)
         {
             HoldFlag = false;
             FindObjectOfType<SpawnMino>().HoldMino();
@@ -197,7 +197,7 @@ public class Mino : MonoBehaviour
 
         //string AAA = Input.GetJoystickNames();
         // 左矢印キーで左に動く
-        if ( hori < 0 && Xaxiscontrol || Input.GetKeyDown(KeyCode.LeftArrow))
+        if ( hori < 0 && Xaxiscontrol)
         {
             Xaxiscontrol = false;
 
@@ -211,7 +211,7 @@ public class Mino : MonoBehaviour
 
         }
         // 右矢印キーで右に動く
-        else if ( hori > 0 && Xaxiscontrol || Input.GetKeyDown(KeyCode.RightArrow))
+        else if ( hori > 0 && Xaxiscontrol )
         {
             Xaxiscontrol = false;
 
@@ -223,7 +223,7 @@ public class Mino : MonoBehaviour
             }
         }
         // 自動で下に移動させつつ、したボタンでも移動する
-        else if ((Verti < 0 && Yaxiscontrol) || Time.time - previousTime >= fallTime || Input.GetKeyDown(KeyCode.DownArrow))
+        else if ((Verti < 0 && Yaxiscontrol) || Time.time - previousTime >= fallTime)
         {
             Yaxiscontrol = false;
 
@@ -260,7 +260,7 @@ public class Mino : MonoBehaviour
             previousTime = Time.time;
         }
         //上ボタンでハードドロップ
-        else if ((Verti > 0 && Yaxiscontrol)|| Input.GetKeyDown(KeyCode.UpArrow) && HardDropFlag)
+        else if ((Verti > 0 && Yaxiscontrol)&& HardDropFlag)
         {
             Yaxiscontrol = false;
 
